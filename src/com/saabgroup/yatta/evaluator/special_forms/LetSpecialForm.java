@@ -1,4 +1,4 @@
-package com.saabgroup.yatta.evaluator.functions;
+package com.saabgroup.yatta.evaluator.special_forms;
 
 import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.evaluator.Evaluator;
@@ -6,7 +6,7 @@ import com.saabgroup.yatta.evaluator.IEnvironment;
 
 import java.util.ArrayList;
 
-public class LetSpecialForm implements IFunction {
+public class LetSpecialForm implements ISpecialForm {
     private final Evaluator evaluator;
 
     public LetSpecialForm(Evaluator evaluator) {
@@ -30,9 +30,5 @@ public class LetSpecialForm implements IFunction {
         }
 
         return evaluator.evaluate(body, env);
-    }
-
-    public boolean isSpecialForm() {
-        return true;
     }
 }

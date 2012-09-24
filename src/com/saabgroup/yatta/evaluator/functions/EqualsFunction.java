@@ -1,11 +1,9 @@
 package com.saabgroup.yatta.evaluator.functions;
 
-import com.saabgroup.yatta.evaluator.IEnvironment;
-
 import java.util.ArrayList;
 
 public class EqualsFunction implements IFunction {
-    public Object apply(ArrayList args, IEnvironment env) {
+    public Object apply(ArrayList args) {
         args = new ArrayList(args);
         Object previousArg = args.remove(0);
 
@@ -16,9 +14,5 @@ public class EqualsFunction implements IFunction {
         }
 
         return true;
-    }
-
-    public boolean isSpecialForm() {
-        return false;
     }
 }

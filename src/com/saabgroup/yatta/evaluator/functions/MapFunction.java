@@ -1,11 +1,9 @@
 package com.saabgroup.yatta.evaluator.functions;
 
-import com.saabgroup.yatta.evaluator.IEnvironment;
-
 import java.util.ArrayList;
 
 public class MapFunction implements IFunction {
-    public Object apply(ArrayList args, IEnvironment env) throws Exception {
+    public Object apply(ArrayList args) throws Exception {
         args = new ArrayList(args);
         IFunction func = (IFunction)args.get(0);
 
@@ -27,13 +25,10 @@ public class MapFunction implements IFunction {
                 toApply.add(argList.get(i));
             }
 
-            results.add(func.apply(toApply, env));
+            results.add(func.apply(toApply));
         }
 
         return results;
     }
 
-    public boolean isSpecialForm() {
-        return false;
-    }
 }

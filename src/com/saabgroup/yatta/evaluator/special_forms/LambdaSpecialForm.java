@@ -1,11 +1,12 @@
-package com.saabgroup.yatta.evaluator.functions;
+package com.saabgroup.yatta.evaluator.special_forms;
 
 import com.saabgroup.yatta.evaluator.IEnvironment;
 import com.saabgroup.yatta.evaluator.IEvaluator;
+import com.saabgroup.yatta.evaluator.functions.UserFunction;
 
 import java.util.ArrayList;
 
-public class LambdaSpecialForm implements IFunction {
+public class LambdaSpecialForm implements ISpecialForm {
     private final IEvaluator evaluator;
 
     public LambdaSpecialForm(IEvaluator evaluator) {
@@ -17,9 +18,5 @@ public class LambdaSpecialForm implements IFunction {
         Object body = args.get(1);
 
         return new UserFunction(paramList, body, evaluator, env);
-    }
-
-    public boolean isSpecialForm() {
-        return true;
     }
 }

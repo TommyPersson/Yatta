@@ -5,7 +5,7 @@ import com.saabgroup.yatta.evaluator.IEnvironment;
 import java.util.ArrayList;
 
 public class LessThanFunction implements IFunction {
-    public Object apply(ArrayList args, IEnvironment env) {
+    public Object apply(ArrayList args) {
         args = new ArrayList(args);
         Comparable previousArg = (Comparable)args.remove(0);
 
@@ -21,7 +21,4 @@ public class LessThanFunction implements IFunction {
         return true;
     }
 
-    public boolean isSpecialForm() {
-        return false;
-    }
 }

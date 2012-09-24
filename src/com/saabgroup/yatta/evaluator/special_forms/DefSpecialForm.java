@@ -1,4 +1,4 @@
-package com.saabgroup.yatta.evaluator.functions;
+package com.saabgroup.yatta.evaluator.special_forms;
 
 import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.evaluator.IEnvironment;
@@ -6,7 +6,7 @@ import com.saabgroup.yatta.evaluator.IEvaluator;
 
 import java.util.ArrayList;
 
-public class DefSpecialForm implements IFunction {
+public class DefSpecialForm implements ISpecialForm {
     private IEvaluator evaluator;
 
     public DefSpecialForm(IEvaluator evaluator) {
@@ -19,9 +19,5 @@ public class DefSpecialForm implements IFunction {
         evaluator.setRootBinding(((Symbol) args.get(0)).getName(), value);
 
         return value;
-    }
-
-    public boolean isSpecialForm() {
-        return true;
     }
 }

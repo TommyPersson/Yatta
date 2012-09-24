@@ -19,7 +19,7 @@ public class UserFunction implements IFunction {
         this.lexicalEnv = lexicalEnv;
     }
 
-    public Object apply(ArrayList args, IEnvironment env) throws Exception {
+    public Object apply(ArrayList args) throws Exception {
         IEnvironment lambdaEnv = lexicalEnv;
 
         if (args.size() != paramList.size()) {
@@ -32,9 +32,5 @@ public class UserFunction implements IFunction {
         }
 
         return evaluator.evaluate(body, lambdaEnv);
-    }
-
-    public boolean isSpecialForm() {
-        return false;
     }
 }
