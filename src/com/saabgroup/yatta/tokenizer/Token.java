@@ -28,4 +28,9 @@ public class Token {
     public int getRow() {
         return row;
     }
+
+    @Override
+    public String toString() {
+        return getType() + " " + getValue();
+    }
 }

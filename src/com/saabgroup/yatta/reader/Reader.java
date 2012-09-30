@@ -1,9 +1,7 @@
 package com.saabgroup.yatta.reader;
 
-import com.saabgroup.yatta.QuoteType;
 import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
-import com.saabgroup.yatta.Tuple;
 import com.saabgroup.yatta.tokenizer.ITokenizer;
 import com.saabgroup.yatta.tokenizer.Token;
 import com.saabgroup.yatta.tokenizer.TokenType;
@@ -12,12 +10,9 @@ import com.saabgroup.yatta.tokenizer.Tokenizer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Stack;
 
 public class Reader implements IReader {
     ITokenizer tokenizer;
-    private Stack<Tuple<List<Object>, Stack<QuoteType>>> lists;
 
     public Reader() {
         tokenizer = new Tokenizer();
