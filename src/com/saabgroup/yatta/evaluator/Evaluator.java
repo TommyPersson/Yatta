@@ -4,8 +4,8 @@ import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.evaluator.functions.*;
 import com.saabgroup.yatta.evaluator.special_forms.*;
-import com.saabgroup.yatta.parser.IParser;
-import com.saabgroup.yatta.parser.Parser;
+import com.saabgroup.yatta.reader.IReader;
+import com.saabgroup.yatta.reader.Reader;
 import com.saabgroup.yatta.tokenizer.Tokenizer;
 
 import java.util.ArrayList;
@@ -14,15 +14,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Evaluator implements IEvaluator {
-    private final IParser parser;
+    private final IReader parser;
 
     private final Environment rootEnvironment;
 
     public Evaluator() {
-        this(new Parser(new Tokenizer()));
+        this(new Reader(new Tokenizer()));
     }
 
-    public Evaluator(IParser parser) {
+    public Evaluator(IReader parser) {
         this.parser = parser;
 
         rootEnvironment = createRootEnvironment();
@@ -33,7 +33,7 @@ public class Evaluator implements IEvaluator {
     }
 
     public Object evaluate(String input, IEnvironment env) throws Exception {
-        Collection<Object> forms = parser.parse(input);
+        Collection<Object> forms = parser.read(input);
         env = rootEnvironment.createChildEnvironment(env);
 
         return evaluate(forms, env);
@@ -81,6 +81,7 @@ public class Evaluator implements IEvaluator {
         rootDefs.put("let", new LetSpecialForm(this));
 
         rootDefs.put("+", new PlusFunction());
+        rootDefs.put("*", new MultiplyFunction());
         rootDefs.put("=", new EqualsFunction());
         rootDefs.put("<", new LessThanFunction());
         rootDefs.put("not", new NotFunction());

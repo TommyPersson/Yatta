@@ -2,8 +2,8 @@ package com.saabgroup.yatta.tests;
 
 import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
-import com.saabgroup.yatta.parser.IParser;
-import com.saabgroup.yatta.parser.Parser;
+import com.saabgroup.yatta.reader.Reader;
+import com.saabgroup.yatta.reader.IReader;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -11,12 +11,12 @@ import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
 
-public class ParserTests {
+public class ReaderTests {
     @Test
-    public void shallParseNumbers() throws Exception {
-        IParser parser = new Parser();
+    public void shallReadNumbers() throws Exception {
+        IReader Reader = new Reader();
 
-        BigDecimal[] res = parser.parse("1 23 23.5 -1 -23 -23.5").toArray(new BigDecimal[0]);
+        BigDecimal[] res = Reader.read("1 23 23.5 -1 -23 -23.5").toArray(new BigDecimal[0]);
 
         assertEquals(new BigDecimal("1"), res[0]);
         assertEquals(new BigDecimal("23"), res[1]);
@@ -27,20 +27,20 @@ public class ParserTests {
     }
 
     @Test
-    public void shallParseStrings() throws Exception {
-        IParser parser = new Parser();
+    public void shallReadStrings() throws Exception {
+        IReader Reader = new Reader();
 
-        String[] res = parser.parse("\"a-string\" \"\\\"a-nested-string\\\"\"").toArray(new String[0]);
+        String[] res = Reader.read("\"a-string\" \"\\\"a-nested-string\\\"\"").toArray(new String[0]);
 
         assertEquals("a-string", res[0]);
         assertEquals("\"a-nested-string\"", res[1]);
     }
 
     @Test
-    public void shallParseSymbols() throws Exception {
-        IParser parser = new Parser();
+    public void shallReadSymbols() throws Exception {
+        IReader Reader = new Reader();
 
-        Symbol[] res = parser.parse("a-sym a-n0ther-sym! < + / *").toArray(new Symbol[0]);
+        Symbol[] res = Reader.read("a-sym a-n0ther-sym! < + / *").toArray(new Symbol[0]);
 
         assertEquals("a-sym", res[0].getName());
         assertEquals("a-n0ther-sym!", res[1].getName());
@@ -51,10 +51,10 @@ public class ParserTests {
     }
 
     @Test
-    public void shallParseLists() throws Exception {
-        IParser parser = new Parser();
+    public void shallReadLists() throws Exception {
+        IReader Reader = new Reader();
 
-        ArrayList[] res = parser.parse("(1 2 3) (a b c)").toArray(new ArrayList[0]);
+        ArrayList[] res = Reader.read("(1 2 3) (a b c)").toArray(new ArrayList[0]);
 
         assertEquals(3, res[0].size());
         assertEquals(new BigDecimal("1"), res[0].get(0));
@@ -67,10 +67,10 @@ public class ParserTests {
     }
 
     @Test
-    public void shallParseQuotedValues() throws Exception {
-        IParser parser = new Parser();
+    public void shallReadQuotedValues() throws Exception {
+        IReader Reader = new Reader();
 
-        Quoted[] res = parser.parse("'1 'a '(1 2 3)").toArray(new Quoted[0]);
+        Quoted[] res = Reader.read("'1 'a '(1 2 3)").toArray(new Quoted[0]);
 
         assertEquals(3, res.length);
         assertEquals(new BigDecimal("1"), res[0].getQuotedValue());
