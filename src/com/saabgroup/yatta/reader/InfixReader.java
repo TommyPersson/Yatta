@@ -1,5 +1,6 @@
 package com.saabgroup.yatta.reader;
 
+import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.Tuple;
 import com.saabgroup.yatta.tokenizer.ITokenizer;
@@ -17,21 +18,26 @@ public class InfixReader implements IReader {
     static {
         operators = new HashMap<String, Tuple<Integer, Boolean>>();
 
-        operators.put("==", makeOp(1, false));
-        operators.put("=", makeOp(1, false));
-        operators.put("<", makeOp(1, false));
-        operators.put("<=", makeOp(1, false));
-        operators.put(">", makeOp(1, false));
-        operators.put(">=", makeOp(1, false));
+        operators.put("||", makeOp(6, false));
+        operators.put("&&", makeOp(7, false));
 
-        operators.put("+", makeOp(2, true));
-        operators.put("-", makeOp(2, true));
+        operators.put("==", makeOp(8, false));
+        operators.put("=", makeOp(8, false));
+        operators.put("<", makeOp(8, false));
+        operators.put("<=", makeOp(8, false));
+        operators.put(">", makeOp(8, false));
+        operators.put(">=", makeOp(8, false));
 
-        operators.put("*", makeOp(3, true));
-        operators.put("/", makeOp(3, true));
+        operators.put("+", makeOp(9, true));
+        operators.put("-", makeOp(9, true));
+
+        operators.put("*", makeOp(10, true));
+        operators.put("/", makeOp(10, true));
 
         lispyOperators = new HashMap<String, String>();
         lispyOperators.put("==", "=");
+        lispyOperators.put("&&", "and");
+        lispyOperators.put("||", "or");
     }
 
     private static Tuple<Integer, Boolean> makeOp(Integer precedence, Boolean isLeftAssociative) {
@@ -86,7 +92,7 @@ public class InfixReader implements IReader {
         throw new Exception("Wat");
     }
 
-    private Object readInfixExpression(TokenBuffer buffer) {
+    private Object readInfixExpression(TokenBuffer buffer) throws Exception {
         Stack<Token> stack = new Stack<Token>();
         Collection<Object> rpnOutput = new ArrayList<Object>();
 
@@ -148,7 +154,8 @@ public class InfixReader implements IReader {
     private boolean isInvalidInfixExpressionToken(Token t) {
         return t.getValue().equals("else") ||
                t.getValue().equals("then") ||
-               t.getValue().equals("end");
+               t.getValue().equals("end") ||
+               t.getValue().equals("elsif");
     }
 
     private Object lispify(Collection<Object> rpnOutput) {
@@ -186,25 +193,41 @@ public class InfixReader implements IReader {
         return new Symbol(name);
     }
 
-    private Object readIfExpression(TokenBuffer buffer) {
-        buffer.moveNext(); // discard if-symbol
+    private Object readIfExpression(TokenBuffer buffer) throws Exception {
+        buffer.moveNext("if");
         Object predicate = readInfixExpression(buffer);
 
-        buffer.moveNext(); // discard then-symbol
+        buffer.moveNext("then");
         Object thenExpr = readInfixExpression(buffer);
 
-        buffer.moveNext(); // discard else-symbol
-        Object elseExpr = readInfixExpression(buffer);
+        List<Object> condList = new ArrayList<Object>();
+        condList.add(new Symbol("cond"));
+        condList.add(predicate);
+        condList.add(thenExpr);
 
-        buffer.moveNext(); // discard end-symbol
+        while (buffer.current().getValue().equals("elsif")) {
+            buffer.moveNext();
 
-        List<Object> ifList = new ArrayList<Object>();
-        ifList.add(new Symbol("if"));
-        ifList.add(predicate);
-        ifList.add(thenExpr);
-        ifList.add(elseExpr);
+            Object elsifPred = readInfixExpression(buffer);
+            buffer.moveNext("then");
 
-        return ifList;
+            Object elsifThenExpr = readInfixExpression(buffer);
+
+            condList.add(elsifPred);
+            condList.add(elsifThenExpr);
+        }
+
+        if (buffer.current().getValue().equals("else")) {
+            buffer.moveNext();
+
+            condList.add(new Quoted(new Symbol("else")));
+            condList.add(readInfixExpression(buffer));
+        }
+
+        buffer.moveNext("end");
+
+
+        return condList;
     }
 
     private boolean isIf(Token t) {
@@ -225,26 +248,5 @@ public class InfixReader implements IReader {
 
     private boolean isLeftAssociative(Token t) {
         return operators.get(t.getValue()).getItem2();
-    }
-
-    private class TokenBuffer {
-        private int location;
-        private ArrayList<Token> buffer;
-
-        public TokenBuffer(Collection<Token> tokens) {
-            buffer = new ArrayList<Token>(tokens);
-        }
-
-        Token current() {
-            return buffer.get(location);
-        }
-
-        void moveNext() {
-            location++;
-        }
-
-        boolean isEmpty() {
-            return location >= buffer.size() || current().getType() == TokenType.EOF;
-        }
     }
 }

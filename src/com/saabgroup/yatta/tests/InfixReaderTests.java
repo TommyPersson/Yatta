@@ -143,4 +143,20 @@ public class InfixReaderTests {
 
         assertEquals(123, ((BigDecimal) evaluator.evaluate(program)).intValue());
     }
+
+    @Test
+    public void shallReadIfsWithElsifs() throws Exception {
+        IReader parser = new InfixReader();
+
+        String program = "if Tommy == \"1\" then Val1 " +
+                         "elsif Tommy == \"2\" then Val2 " +
+                         "elsif Tommy == \"3\" then Val3 " +
+                         "end";
+
+        IEvaluator evaluator = new Evaluator(parser);
+        evaluator.setRootBinding("Tommy", "3");
+        evaluator.setRootBinding("Val3", new BigDecimal(123));
+
+        assertEquals(123, ((BigDecimal) evaluator.evaluate(program)).intValue());
+    }
 }

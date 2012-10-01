@@ -60,7 +60,7 @@ public class Reader implements IReader {
     }
 
     private Object readList(TokenBuffer buffer) throws Exception {
-        buffer.moveNext(); // discard LPAREN
+        buffer.moveNext(TokenType.LParen);
 
         Collection<Object> list = new ArrayList<Object>();
 
@@ -68,7 +68,7 @@ public class Reader implements IReader {
             list.add(readExpression(buffer));
         }
 
-        buffer.moveNext(); // discard RPAREN
+        buffer.moveNext(TokenType.RParen);
 
         return list;
     }
@@ -81,7 +81,7 @@ public class Reader implements IReader {
     }
 
     private Object readQuoted(TokenBuffer buffer) throws Exception {
-        buffer.moveNext(); // discard QUOTE
+        buffer.moveNext(TokenType.Quote);
 
         return new Quoted(readExpression(buffer));
     }
@@ -98,26 +98,5 @@ public class Reader implements IReader {
         buffer.moveNext();
 
         return new BigDecimal(token.getValue());
-    }
-
-    private class TokenBuffer {
-        private int location;
-        private ArrayList<Token> buffer;
-
-        public TokenBuffer(Collection<Token> tokens) {
-            buffer = new ArrayList<Token>(tokens);
-        }
-
-        Token current() {
-            return buffer.get(location);
-        }
-
-        void moveNext() {
-            location++;
-        }
-
-        boolean isEmpty() {
-            return location >= buffer.size() || current().getType() == TokenType.EOF;
-        }
     }
 }

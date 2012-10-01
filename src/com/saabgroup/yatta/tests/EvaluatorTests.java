@@ -197,4 +197,22 @@ public class EvaluatorTests {
 
         assertEquals(3, res.intValue());
     }
+
+    @Test
+    public void shallEvaluateCond() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        BigDecimal res = (BigDecimal)evaluator.evaluate("(cond false 1 false 2 true 3 'else 4)");
+
+        assertEquals(3, res.intValue());
+    }
+
+    @Test
+    public void shallEvaluateCondElse() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        BigDecimal res = (BigDecimal)evaluator.evaluate("(cond false 1 false 2 false 3 'else 4)");
+
+        assertEquals(4, res.intValue());
+    }
 }

@@ -78,6 +78,7 @@ public class Evaluator implements IEvaluator {
         rootDefs.put("lambda", new LambdaSpecialForm(this));
         rootDefs.put("def", new DefSpecialForm(this));
         rootDefs.put("if", new IfSpecialForm(this));
+        rootDefs.put("cond", new CondSpecialForm(this));
         rootDefs.put("let", new LetSpecialForm(this));
 
         rootDefs.put("+", new PlusFunction());
