@@ -66,30 +66,10 @@ public class InfixReader implements IReader {
         TokenBuffer buffer = new TokenBuffer(tokens);
 
         while (!buffer.isEmpty()) {
-            output.add(readExpression(buffer));
+            output.add(readInfixExpression(buffer));
         }
 
         return Collections.unmodifiableList(output);
-    }
-
-    private Object readExpression(TokenBuffer buffer) throws Exception {
-        Token token = buffer.current();
-
-        switch (token.getType()) {
-            case LParen:
-            case Number:
-            case String:
-                return readInfixExpression(buffer);
-
-            case Symbol:
-                if (isIf(token)) {
-                    return readIfExpression(buffer);
-                } else {
-                    return readInfixExpression(buffer);
-                }
-        }
-
-        throw new Exception("Wat");
     }
 
     private Object readInfixExpression(TokenBuffer buffer) throws Exception {
