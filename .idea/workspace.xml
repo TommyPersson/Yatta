@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Yatta:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b568eb6f-eca4-40f7-9b1a-4d0361c4436e" name="Default" comment="" />
     <ignored path="Yatta.iws" />
@@ -18,6 +23,8 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -50,8 +57,6 @@
         <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
     </breakpoint_any>
-    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -62,83 +67,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Evaluator.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/Evaluator.java">
+      <file leaf-file-name="ListFunction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/ListFunction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="35" selection-start="1890" selection-end="1890" vertical-scroll-proportion="0.46401516">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IEvaluator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/IEvaluator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="21" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DoSpecialForm.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/DoSpecialForm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="30" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EvaluatorTests.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/tests/EvaluatorTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="152" column="45" selection-start="5070" selection-end="5070" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LetSpecialForm.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/LetSpecialForm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="33" selection-start="675" selection-end="675" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IfSpecialForm.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/IfSpecialForm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="30" selection-start="516" selection-end="516" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Environment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/Environment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="13" selection-start="167" selection-end="167" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1088#1104#0" expanded="true" />
-                <element signature="e#1450#1466#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserFunction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/UserFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="40" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0">
+            <state line="6" column="29" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -147,11 +79,28 @@
       <file leaf-file-name="MapFunction.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/MapFunction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="11" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0">
+            <state line="4" column="13" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MultiplyFunction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/MultiplyFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="13" selection-start="121" selection-end="121" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#420#431#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotFunction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/NotFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="13" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -159,10 +108,53 @@
       <file leaf-file-name="PlusFunction.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/PlusFunction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="54" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="5" column="13" selection-start="121" selection-end="121" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserFunction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/UserFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="45" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Evaluator.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/Evaluator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="49" column="52" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.28709677">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LessThanFunction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/LessThanFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="13" selection-start="144" selection-end="144" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IFunction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/IFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="17" selection-start="96" selection-end="96" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EqualsFunction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/EqualsFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="13" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -177,22 +169,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/PlusFunction.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/DefSpecialForm.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/LambdaSpecialForm.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/UserFunction.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/ValueUtils.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/AndSpecialForm.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/OrSpecialForm.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/NotFunction.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/ListFunction.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/LetSpecialForm.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/DoSpecialForm.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/IEvaluator.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/MapFunction.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/tests/EvaluatorTests.java" />
-        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/IfSpecialForm.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/parser/Reader.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/parser/InfixParser.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/parser/InfixReader.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/reader/IReader.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/tests/ReaderTests.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/Symbol.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/reader/InfixReader2.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/tokenizer/Token.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/reader/Reader.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/tests/InfixReaderTests.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/reader/TokenBuffer.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/special_forms/CondSpecialForm.java" />
         <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/Evaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/reader/InfixReader.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/tests/EvaluatorTests.java" />
+        <option value="$PROJECT_DIR$/src/com/saabgroup/yatta/QuoteType.java" />
       </list>
     </option>
   </component>
@@ -228,6 +220,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -250,147 +244,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tokenizer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="parser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="evaluator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yatta" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="evaluator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="functions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="OverrideImplement.combined" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -398,19 +258,24 @@
     <property name="options.lastSelected" value="fileTemplates" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="Repository.Attach.Sources" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="Downloaded.Files.Path" value="C:\Development\Yatta\lib" />
     <property name="dynamic.classpath" value="false" />
+    <property name="Downloaded.Files.Path" value="C:\Development\Yatta\lib" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.saabgroup.yatta.tests" />
+      <recent name="com.saabgroup.yatta.parser" />
+    </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="com.saabgroup.yatta.evaluator" />
       <recent name="com.saabgroup.yatta" />
@@ -418,17 +283,21 @@
       <recent name="com.saabgroup.yatta.tokenizer" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.saabgroup.yatta.evaluator" />
       <recent name="com.saabgroup.yatta.evaluator.functions" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Development\Yatta" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.Unit Tests">
-    <configuration default="false" name="EvaluatorTests.canCompareNumbers" type="JUnit" factoryName="JUnit" temporary="true">
+    <configuration default="false" name="InfixReaderTests.shallReadIfs" type="JUnit" factoryName="JUnit" temporary="true">
       <module name="Yatta" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="PACKAGE_NAME" value="com.saabgroup.yatta.tests" />
-      <option name="MAIN_CLASS_NAME" value="com.saabgroup.yatta.tests.EvaluatorTests" />
-      <option name="METHOD_NAME" value="canCompareNumbers" />
+      <option name="MAIN_CLASS_NAME" value="com.saabgroup.yatta.tests.InfixReaderTests" />
+      <option name="METHOD_NAME" value="shallReadIfs" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PARAMETERS" value="" />
@@ -450,13 +319,41 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="EvaluatorTests.canDefineValues" type="JUnit" factoryName="JUnit" temporary="true">
+    <configuration default="false" name="InfixReaderTests" type="JUnit" factoryName="JUnit" temporary="true">
       <module name="Yatta" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="PACKAGE_NAME" value="com.saabgroup.yatta.tests" />
-      <option name="MAIN_CLASS_NAME" value="com.saabgroup.yatta.tests.EvaluatorTests" />
-      <option name="METHOD_NAME" value="canDefineValues" />
+      <option name="MAIN_CLASS_NAME" value="com.saabgroup.yatta.tests.InfixReaderTests" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="InfixReaderTests.shallReadNestedIfs" type="JUnit" factoryName="JUnit" temporary="true">
+      <module name="Yatta" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="PACKAGE_NAME" value="com.saabgroup.yatta.tests" />
+      <option name="MAIN_CLASS_NAME" value="com.saabgroup.yatta.tests.InfixReaderTests" />
+      <option name="METHOD_NAME" value="shallReadNestedIfs" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PARAMETERS" value="" />
@@ -478,13 +375,13 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="EvaluatorTests.canAndValues" type="JUnit" factoryName="JUnit" temporary="true">
+    <configuration default="false" name="InfixReaderTests.shallReadNestedIfs2" type="JUnit" factoryName="JUnit" temporary="true">
       <module name="Yatta" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="PACKAGE_NAME" value="com.saabgroup.yatta.tests" />
-      <option name="MAIN_CLASS_NAME" value="com.saabgroup.yatta.tests.EvaluatorTests" />
-      <option name="METHOD_NAME" value="canAndValues" />
+      <option name="MAIN_CLASS_NAME" value="com.saabgroup.yatta.tests.InfixReaderTests" />
+      <option name="METHOD_NAME" value="shallReadNestedIfs2" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PARAMETERS" value="" />
@@ -501,16 +398,18 @@
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="EvaluatorTests.canMapValuesOverAList" type="JUnit" factoryName="JUnit" temporary="true">
+    <configuration default="false" name="InfixReaderTests.shallReadIfsWithElsifs" type="JUnit" factoryName="JUnit" temporary="true">
       <module name="Yatta" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="PACKAGE_NAME" value="com.saabgroup.yatta.tests" />
-      <option name="MAIN_CLASS_NAME" value="com.saabgroup.yatta.tests.EvaluatorTests" />
-      <option name="METHOD_NAME" value="canMapValuesOverAList" />
+      <option name="MAIN_CLASS_NAME" value="com.saabgroup.yatta.tests.InfixReaderTests" />
+      <option name="METHOD_NAME" value="shallReadIfsWithElsifs" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PARAMETERS" value="" />
@@ -615,19 +514,21 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="5">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="JUnit.Unit Tests" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.EvaluatorTests.canCompareNumbers" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.EvaluatorTests.canDefineValues" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.EvaluatorTests.canAndValues" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.EvaluatorTests.canMapValuesOverAList" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.InfixReaderTests.shallReadIfs" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.InfixReaderTests" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.InfixReaderTests.shallReadNestedIfs" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.InfixReaderTests.shallReadNestedIfs2" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.InfixReaderTests.shallReadIfsWithElsifs" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.EvaluatorTests.canMapValuesOverAList" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.EvaluatorTests.canAndValues" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.EvaluatorTests.canDefineValues" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.EvaluatorTests.canCompareNumbers" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.InfixReaderTests.shallReadIfsWithElsifs" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.InfixReaderTests.shallReadNestedIfs2" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.InfixReaderTests" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.InfixReaderTests.shallReadNestedIfs" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.InfixReaderTests.shallReadIfs" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -664,26 +565,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952183" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991684" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4043659" sideWeight="0.5071744" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952183" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32952183" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35099337" sideWeight="0.5956341" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4043659" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20584989" sideWeight="0.67047817" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4043659" sideWeight="0.48896247" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952183" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -745,135 +646,118 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/OrSpecialForm.java">
+    <entry file="file://$PROJECT_DIR$/tests/com/saabgroup/yatta/tests/EvaluatorTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="37" selection-start="522" selection-end="522" vertical-scroll-proportion="0.0">
+        <state line="198" column="38" selection-start="6850" selection-end="6850" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/com/saabgroup/yatta/tests/InfixReaderTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="135" column="141" selection-start="4265" selection-end="4265" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/reader/Reader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="87" column="29" selection-start="2363" selection-end="2363" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/Quoted.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="13" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/Tuple.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="15" selection-start="45" selection-end="45" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/reader/InfixReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="19" selection-start="1401" selection-end="1401" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/ListFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="29" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/LessThanFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="55" selection-start="239" selection-end="239" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="6" column="13" selection-start="144" selection-end="144" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/IFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="17" selection-start="96" selection-end="96" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/EqualsFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="55" selection-start="237" selection-end="237" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/NotFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="21" selection-start="420" selection-end="420" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/ListFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="25" selection-start="358" selection-end="358" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/LambdaSpecialForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="5" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/PlusFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="54" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/Environment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="167" selection-end="167" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1088#1104#0" expanded="true" />
-            <element signature="e#1450#1466#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/DoSpecialForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="30" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/IEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="21" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/UserFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="40" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0">
+        <state line="4" column="13" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/MapFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="11" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#420#431#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/LetSpecialForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="33" selection-start="675" selection-end="675" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/tests/EvaluatorTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="45" selection-start="5070" selection-end="5070" vertical-scroll-proportion="0.0">
+        <state line="4" column="13" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/IfSpecialForm.java">
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/MultiplyFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="30" selection-start="516" selection-end="516" vertical-scroll-proportion="0.0">
+        <state line="5" column="13" selection-start="121" selection-end="121" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/NotFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="13" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/PlusFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="121" selection-end="121" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/functions/UserFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="45" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/saabgroup/yatta/evaluator/Evaluator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="35" selection-start="1890" selection-end="1890" vertical-scroll-proportion="0.46401516">
+        <state line="49" column="52" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.28709677">
           <folding />
         </state>
       </provider>
@@ -884,10 +768,12 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
+          <last-edited>Yatta:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

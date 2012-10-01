@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Yatta:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Yatta_jar</output-path>
+    <root id="archive" name="Yatta.jar">
+      <element id="module-output" name="Yatta" />
+    </root>
+  </artifact>
+</component>

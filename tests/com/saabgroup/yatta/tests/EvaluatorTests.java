@@ -59,7 +59,7 @@ public class EvaluatorTests {
         IEvaluator evaluator = new Evaluator();
 
         assertTrue((Boolean)evaluator.evaluate("(< 1 2 3)"));
-        assertFalse((Boolean)evaluator.evaluate("(< 1 3 2)"));
+        assertFalse((Boolean) evaluator.evaluate("(< 1 3 2)"));
     }
 
     @Test
@@ -67,16 +67,16 @@ public class EvaluatorTests {
         IEvaluator evaluator = new Evaluator();
 
         assertTrue((Boolean)evaluator.evaluate("(= 1 1 (+ 2 0 -1))"));
-        assertFalse((Boolean)evaluator.evaluate("(= 1 2 1)"));
+        assertFalse((Boolean) evaluator.evaluate("(= 1 2 1)"));
     }
 
     @Test
     public void canDefineValues() throws Exception {
         IEvaluator evaluator = new Evaluator();
 
-        assertEquals(2, ((BigDecimal)evaluator.evaluate("(def a 2)" +
-                                                        "a")).intValue());
-        assertEquals(3, ((BigDecimal)evaluator.evaluate("(+ a 1)")).intValue());
+        assertEquals(2, ((BigDecimal) evaluator.evaluate("(def a 2)" +
+                "a")).intValue());
+        assertEquals(3, ((BigDecimal) evaluator.evaluate("(+ a 1)")).intValue());
     }
 
     @Test
@@ -84,15 +84,15 @@ public class EvaluatorTests {
         IEvaluator evaluator = new Evaluator();
 
         assertTrue(evaluator.evaluate("(def my+ (lambda (x y) (+ x y)))") instanceof IFunction);
-        assertEquals(3, ((BigDecimal)evaluator.evaluate("(my+ 2 1)")).intValue());
+        assertEquals(3, ((BigDecimal) evaluator.evaluate("(my+ 2 1)")).intValue());
     }
 
     @Test
     public void canAndValues() throws Exception {
         IEvaluator evaluator = new Evaluator();
 
-        assertTrue((Boolean)evaluator.evaluate("(and true true (= 1 1))"));
-        assertFalse((Boolean)evaluator.evaluate("(and true false (= 1 1))"));
+        assertTrue((Boolean) evaluator.evaluate("(and true true (= 1 1))"));
+        assertFalse((Boolean) evaluator.evaluate("(and true false (= 1 1))"));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class EvaluatorTests {
 
         assertTrue((Boolean)evaluator.evaluate("(or true true (= 1 1))"));
         assertTrue((Boolean)evaluator.evaluate("(or true false (= 1 1))"));
-        assertFalse((Boolean)evaluator.evaluate("(or false (= 1 2) (= true false))"));
+        assertFalse((Boolean) evaluator.evaluate("(or false (= 1 2) (= true false))"));
     }
 
     @Test
@@ -109,9 +109,9 @@ public class EvaluatorTests {
         IEvaluator evaluator = new Evaluator();
 
         assertFalse((Boolean)evaluator.evaluate("(not true)"));
-        assertFalse((Boolean)evaluator.evaluate("(not 2)"));
+        assertFalse((Boolean) evaluator.evaluate("(not 2)"));
         assertTrue((Boolean)evaluator.evaluate("(not false)"));
-        assertTrue((Boolean)evaluator.evaluate("(not nil)"));
+        assertTrue((Boolean) evaluator.evaluate("(not nil)"));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class EvaluatorTests {
         IEvaluator evaluator = new Evaluator();
 
         assertTrue((Boolean)evaluator.evaluate("(if true true false)"));
-        assertFalse((Boolean)evaluator.evaluate("(if false true false)"));
+        assertFalse((Boolean) evaluator.evaluate("(if false true false)"));
     }
 
     @Test
@@ -131,8 +131,8 @@ public class EvaluatorTests {
 
         assertEquals(3, res.size());
         assertEquals(2, ((BigDecimal)res.get(0)).intValue());
-        assertEquals(3, ((BigDecimal)res.get(1)).intValue());
-        assertEquals(4, ((BigDecimal)res.get(2)).intValue());
+        assertEquals(3, ((BigDecimal) res.get(1)).intValue());
+        assertEquals(4, ((BigDecimal) res.get(2)).intValue());
     }
 
     @Test
@@ -145,8 +145,8 @@ public class EvaluatorTests {
 
         assertEquals(3, res.size());
         assertEquals(4, ((BigDecimal)res.get(0)).intValue());
-        assertEquals(4, ((BigDecimal)res.get(1)).intValue());
-        assertEquals(4, ((BigDecimal)res.get(2)).intValue());
+        assertEquals(4, ((BigDecimal) res.get(1)).intValue());
+        assertEquals(4, ((BigDecimal) res.get(2)).intValue());
     }
 
     @Test
