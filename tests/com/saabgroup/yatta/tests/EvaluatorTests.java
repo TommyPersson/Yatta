@@ -7,8 +7,8 @@ import com.saabgroup.yatta.evaluator.functions.IFunction;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static junit.framework.Assert.*;
 
@@ -126,8 +126,8 @@ public class EvaluatorTests {
     public void canMapValuesOverAList() throws Exception {
         IEvaluator evaluator = new Evaluator();
 
-        ArrayList res = (ArrayList)evaluator.evaluate("(map (lambda (x) (+ x 1)) " +
-                                                      "     '(1 2 3))");
+        List res = (List)evaluator.evaluate("(map (lambda (x) (+ x 1)) " +
+                                            "     '(1 2 3))");
 
         assertEquals(3, res.size());
         assertEquals(2, ((BigDecimal)res.get(0)).intValue());
@@ -139,9 +139,9 @@ public class EvaluatorTests {
     public void canMapValuesOverLists() throws Exception {
         IEvaluator evaluator = new Evaluator();
 
-        ArrayList res = (ArrayList)evaluator.evaluate("(map (lambda (x y) (+ x y)) " +
-                                                      "     '(1 2 3)" +
-                                                      "     '(3 2 1))");
+        List res = (List)evaluator.evaluate("(map (lambda (x y) (+ x y)) " +
+                                            "     '(1 2 3)" +
+                                            "     '(3 2 1))");
 
         assertEquals(3, res.size());
         assertEquals(4, ((BigDecimal)res.get(0)).intValue());
@@ -153,10 +153,10 @@ public class EvaluatorTests {
     public void canMapValuesOverListsOfDifferentSizes() throws Exception {
         IEvaluator evaluator = new Evaluator();
 
-        ArrayList res = (ArrayList)evaluator.evaluate("(map (lambda (x y z) (+ x y z)) " +
-                                                      "     '(1 2 3)" +
-                                                      "     '(1 1 1 1)" +
-                                                      "     '(3 2 1))");
+        List res = (List)evaluator.evaluate("(map (lambda (x y z) (+ x y z)) " +
+                                            "     '(1 2 3)" +
+                                            "     '(1 1 1 1)" +
+                                            "     '(3 2 1))");
 
         assertEquals(3, res.size());
         assertEquals(5, ((BigDecimal)res.get(0)).intValue());
@@ -168,7 +168,7 @@ public class EvaluatorTests {
     public void canConstructLists() throws Exception {
         IEvaluator evaluator = new Evaluator();
 
-        ArrayList res = (ArrayList)evaluator.evaluate("(list 1 2 3)");
+        List res = (List)evaluator.evaluate("(list 1 2 3)");
 
         assertEquals(3, res.size());
         assertEquals(1, ((BigDecimal)res.get(0)).intValue());
@@ -180,9 +180,9 @@ public class EvaluatorTests {
     public void canBindLocalValuesLists() throws Exception {
         IEvaluator evaluator = new Evaluator();
 
-        ArrayList res = (ArrayList)evaluator.evaluate("(let (x 1" +
-                                                      "      y 2)" +
-                                                      "  (list x y))");
+        List res = (List)evaluator.evaluate("(let (x 1" +
+                                            "      y 2)" +
+                                            "  (list x y))");
 
         assertEquals(2, res.size());
         assertEquals(1, ((BigDecimal)res.get(0)).intValue());

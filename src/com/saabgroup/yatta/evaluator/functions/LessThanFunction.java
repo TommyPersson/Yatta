@@ -1,11 +1,10 @@
 package com.saabgroup.yatta.evaluator.functions;
 
-import com.saabgroup.yatta.evaluator.IEnvironment;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class LessThanFunction implements IFunction {
-    public Object apply(ArrayList args) {
+    public Object apply(List args) {
         args = new ArrayList(args);
         Comparable previousArg = (Comparable)args.remove(0);
 

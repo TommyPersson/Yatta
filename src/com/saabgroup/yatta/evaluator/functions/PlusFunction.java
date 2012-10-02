@@ -1,10 +1,10 @@
 package com.saabgroup.yatta.evaluator.functions;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 public class PlusFunction implements IFunction {
-    public Object apply(ArrayList args) {
+    public Object apply(List args) {
         BigDecimal[] decimals = (BigDecimal[])args.toArray(new BigDecimal[0]);
 
         BigDecimal sum = new BigDecimal(0);

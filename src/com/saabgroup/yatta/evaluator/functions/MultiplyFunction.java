@@ -1,11 +1,10 @@
 package com.saabgroup.yatta.evaluator.functions;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 public class MultiplyFunction implements IFunction {
-
-    public Object apply(ArrayList args) throws Exception {
+    public Object apply(List args) throws Exception {
         BigDecimal sum = new BigDecimal(1);
 
         for (Object arg : args) {

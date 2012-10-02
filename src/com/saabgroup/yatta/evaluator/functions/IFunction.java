@@ -1,7 +1,7 @@
 package com.saabgroup.yatta.evaluator.functions;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IFunction {
-    Object apply(ArrayList args) throws Exception;
+    Object apply(List args) throws Exception;
 }

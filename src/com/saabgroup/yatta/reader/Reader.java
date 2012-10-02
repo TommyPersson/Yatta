@@ -10,6 +10,8 @@ import com.saabgroup.yatta.tokenizer.Tokenizer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class Reader implements IReader {
     ITokenizer tokenizer;
@@ -22,22 +24,22 @@ public class Reader implements IReader {
         this.tokenizer = tokenizer;
     }
 
-    public Collection<Object> read(String input) throws Exception {
+    public List<Object> read(String input) throws Exception {
         Collection<Token> tokens = tokenizer.tokenize(input);
 
         return read(tokens);
     }
 
-    public Collection<Object> read(Collection<Token> tokens) throws Exception {
+    public List<Object> read(Collection<Token> tokens) throws Exception {
         TokenBuffer buffer = new TokenBuffer(tokens);
 
-        Collection<Object> expressions = new ArrayList<Object>();
+        List<Object> expressions = new ArrayList<Object>();
 
         while (!buffer.isEmpty()) {
             expressions.add(readExpression(buffer));
         }
 
-        return expressions;
+        return Collections.unmodifiableList(expressions);
     }
 
     private Object readExpression(TokenBuffer buffer) throws Exception {
@@ -62,7 +64,7 @@ public class Reader implements IReader {
     private Object readList(TokenBuffer buffer) throws Exception {
         buffer.moveNext(TokenType.LParen);
 
-        Collection<Object> list = new ArrayList<Object>();
+        List<Object> list = new ArrayList<Object>();
 
         while (buffer.current().getType() != TokenType.RParen) {
             list.add(readExpression(buffer));
@@ -70,7 +72,7 @@ public class Reader implements IReader {
 
         buffer.moveNext(TokenType.RParen);
 
-        return list;
+        return Collections.unmodifiableList(list);
     }
 
     private Object readSymbol(TokenBuffer buffer) {

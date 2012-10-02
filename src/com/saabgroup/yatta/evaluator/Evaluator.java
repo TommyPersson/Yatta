@@ -8,10 +8,7 @@ import com.saabgroup.yatta.reader.IReader;
 import com.saabgroup.yatta.reader.Reader;
 import com.saabgroup.yatta.tokenizer.Tokenizer;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Evaluator implements IEvaluator {
     private final IReader parser;
@@ -54,8 +51,8 @@ public class Evaluator implements IEvaluator {
             return env.lookUp((Symbol) form);
         } else if (form instanceof Quoted) {
             return ((Quoted)form).getQuotedValue();
-        } else if (form instanceof ArrayList) {
-            return evaluateList((ArrayList) form, env);
+        } else if (form instanceof List) {
+            return evaluateList((List)form, env);
         } else {
             return form;
         }
@@ -92,10 +89,10 @@ public class Evaluator implements IEvaluator {
         return new Environment(rootDefs);
     }
 
-    private Object evaluateList(ArrayList list, IEnvironment env) throws Exception {
+    private Object evaluateList(List list, IEnvironment env) throws Exception {
         Object firstItem = evaluate(list.get(0), env);
 
-        ArrayList args = new ArrayList(list);
+        List args = new ArrayList(list);
         args.remove(0);
 
         if (firstItem instanceof ISpecialForm) {
@@ -107,11 +104,11 @@ public class Evaluator implements IEvaluator {
         throw new IllegalArgumentException("Not a function dude");
     }
 
-    private Object applySpecialForm(ISpecialForm specialForm, ArrayList args, IEnvironment env) throws Exception {
+    private Object applySpecialForm(ISpecialForm specialForm, List args, IEnvironment env) throws Exception {
         return specialForm.apply(args, env);
     }
 
-    private Object applyFunction(IFunction function, ArrayList args, IEnvironment env) throws Exception {
+    private Object applyFunction(IFunction function, List args, IEnvironment env) throws Exception {
         ArrayList evaluatedArgs = new ArrayList();
 
         for (Object arg : args) {

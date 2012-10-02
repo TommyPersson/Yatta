@@ -4,7 +4,7 @@ import com.saabgroup.yatta.evaluator.Evaluator;
 import com.saabgroup.yatta.evaluator.IEnvironment;
 import com.saabgroup.yatta.evaluator.ValueUtils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class IfSpecialForm implements ISpecialForm {
     private final Evaluator evaluator;
@@ -13,7 +13,7 @@ public class IfSpecialForm implements ISpecialForm {
         this.evaluator = evaluator;
     }
 
-    public Object apply(ArrayList args, IEnvironment env) throws Exception {
+    public Object apply(List args, IEnvironment env) throws Exception {
         // (if test succ fail)
         boolean success = ValueUtils.isTruthy(evaluator.evaluate(args.get(0), env));
 

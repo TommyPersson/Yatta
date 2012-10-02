@@ -2,12 +2,12 @@ package com.saabgroup.yatta.tests;
 
 import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
-import com.saabgroup.yatta.reader.Reader;
 import com.saabgroup.yatta.reader.IReader;
+import com.saabgroup.yatta.reader.Reader;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -54,7 +54,7 @@ public class ReaderTests {
     public void shallReadLists() throws Exception {
         IReader Reader = new Reader();
 
-        ArrayList[] res = Reader.read("(1 2 3) (a b c)").toArray(new ArrayList[0]);
+        List[] res = Reader.read("(1 2 3) (a b c)").toArray(new List[0]);
 
         assertEquals(3, res[0].size());
         assertEquals(new BigDecimal("1"), res[0].get(0));
@@ -75,6 +75,6 @@ public class ReaderTests {
         assertEquals(3, res.length);
         assertEquals(new BigDecimal("1"), res[0].getQuotedValue());
         assertEquals("a", ((Symbol)res[1].getQuotedValue()).getName());
-        assertEquals(3, ((ArrayList<BigDecimal>)res[2].getQuotedValue()).size());
+        assertEquals(3, ((List<BigDecimal>)res[2].getQuotedValue()).size());
     }
 }

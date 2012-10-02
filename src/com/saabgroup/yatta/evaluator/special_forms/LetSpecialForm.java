@@ -5,6 +5,7 @@ import com.saabgroup.yatta.evaluator.Evaluator;
 import com.saabgroup.yatta.evaluator.IEnvironment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LetSpecialForm implements ISpecialForm {
     private final Evaluator evaluator;
@@ -13,12 +14,12 @@ public class LetSpecialForm implements ISpecialForm {
         this.evaluator = evaluator;
     }
 
-    public Object apply(ArrayList args, IEnvironment env) throws Exception {
+    public Object apply(List args, IEnvironment env) throws Exception {
         // (let (sym1 val1
         //       sym2 val2)
         //   body)
 
-        ArrayList bindingList = (ArrayList)args.get(0);
+        List bindingList = (List)args.get(0);
         ArrayList body = new ArrayList(args);
         body.remove(0);
 

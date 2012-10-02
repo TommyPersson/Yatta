@@ -4,7 +4,7 @@ import com.saabgroup.yatta.evaluator.IEnvironment;
 import com.saabgroup.yatta.evaluator.IEvaluator;
 import com.saabgroup.yatta.evaluator.ValueUtils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class OrSpecialForm implements ISpecialForm {
     private final IEvaluator evaluator;
@@ -13,7 +13,7 @@ public class OrSpecialForm implements ISpecialForm {
         this.evaluator = evaluator;
     }
 
-    public Object apply(ArrayList args, IEnvironment env) throws Exception {
+    public Object apply(List args, IEnvironment env) throws Exception {
         for (Object arg : args) {
             Object evaluatedArg = evaluator.evaluate(arg, env);
             if (ValueUtils.isTruthy(evaluatedArg)) {
