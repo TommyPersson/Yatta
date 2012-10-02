@@ -5,21 +5,17 @@ import java.util.*;
 public class Tokenizer implements ITokenizer {
     private final HashSet<Character> invalidSymbolCharacters = new HashSet<Character>(Arrays.asList(new Character[] { '(', ')', ' ', '\n', '\t', '\r' }));
 
-    private final Character[] lookAhead = new Character[2];
-    private String inputBuffer;
-    private int readLocation = 0;
+    private InputBuffer inputBuffer;
     private int col;
     private int row;
 
     public List<Token> tokenize(String input) {
-        readLocation = 0;
-        inputBuffer = sanitizeInput(input);
-        updateLookAhead();
+        inputBuffer = new InputBuffer(input);
 
         ArrayList<Token> tokens = new ArrayList<Token>();
 
-        while (hasMoreTokens()) {
-            Token token = getNextToken();
+        while (!inputBuffer.isEmpty()) {
+            Token token = getNextToken(inputBuffer);
             if (token != null) {
                 tokens.add(token);
             }
@@ -30,91 +26,80 @@ public class Tokenizer implements ITokenizer {
         return Collections.unmodifiableList(tokens);
     }
 
-    private String sanitizeInput(String input) {
-        return input.replace("\r", "");
-    }
+    private Token getNextToken(InputBuffer inputBuffer) {
+        while (!inputBuffer.isEmpty()) {
+            char current = inputBuffer.current();
+            Character next = inputBuffer.peekNext();
 
-    private boolean hasMoreTokens() {
-        return lookAhead[0] != null;
-    }
-
-    private Token getNextToken() {
-        while (lookAhead[0] != null) {
-            switch (lookAhead[0]) {
+            switch (current) {
                 case ' ':
                 case '\t':
                 case '\n':
-                    consumeWhitespace();
+                    consumeWhitespace(inputBuffer);
                     break;
                 case ';':
-                    consumeComment();
+                    consumeComment(inputBuffer);
                     break;
                 case '(':
-                    consume();
+                    consume(inputBuffer);
                     return new Token(TokenType.LParen, "(", col, row);
                 case ')':
-                    consume();
+                    consume(inputBuffer);
                     return new Token(TokenType.RParen, ")", col, row);
                 case '\'':
-                    consume();
+                    consume(inputBuffer);
                     return new Token(TokenType.Quote, "'", col, row);
                 case '"':
-                    return parseString();
+                    return readString(inputBuffer);
                 default:
-                    if ((lookAhead[0] == '-' &&
-                         lookAhead[1] != null && Character.isDigit(lookAhead[1])) ||
-                        Character.isDigit(lookAhead[0]))
-                    {
-                        return parseNumber();
+                    if ((current == '-' && next != null && Character.isDigit(next)) ||
+                        Character.isDigit(current)) {
+                        return readNumber(inputBuffer);
                     }
 
-                    if (!invalidSymbolCharacters.contains(lookAhead[0]))
-                    {
-                        return parseSymbol();
+                    if (!invalidSymbolCharacters.contains(current)) {
+                        return readSymbol(inputBuffer);
                     }
 
-                    throw new IllegalArgumentException("Invalid input (" + lookAhead[0] + ") at row " + row + ", column " + col);
+                    throw new IllegalArgumentException("Invalid input (" + current + ") at row " + row + ", column " + col);
             }
         }
 
         return null;
     }
 
-    private void consumeWhitespace() {
-        while (lookAhead[0] == ' ' ||
-               lookAhead[0] == '\t' ||
-               lookAhead[0] == '\n') {
-            consume();
+    private void consumeWhitespace(InputBuffer inputBuffer) {
+        while (isWhitespace(inputBuffer.current())) {
+            consume(inputBuffer);
         }
     }
 
-    private void consumeComment() {
-        while (lookAhead[0] != '\n') {
-            consume();
+    private boolean isWhitespace(char ch) {
+        return ch == ' ' ||
+               ch == '\t' ||
+               ch == '\n';
+    }
+
+    private void consumeComment(InputBuffer inputBuffer) {
+        while (inputBuffer.current() != '\n') {
+            consume(inputBuffer);
         }
     }
 
-    private void consume() {
-        if (lookAhead[0] == '\n') {
+    private void consume(InputBuffer inputBuffer) {
+        if (inputBuffer.current() == '\n') {
             row++;
             col = 0;
         }
-        else
-        {
+        else {
             col++;
         }
 
-        readLocation++;
-        updateLookAhead();
+        inputBuffer.moveNext();
     }
 
-    private void updateLookAhead() {
-        lookAhead[0] = readLocation < inputBuffer.length() ? inputBuffer.charAt(readLocation) : null;
-        lookAhead[1] = readLocation + 1 < inputBuffer.length() ? inputBuffer.charAt(readLocation + 1) : null;
-    }
-
-    private Token parseString() {
-        StringBuilder tokenBuffer = new StringBuilder();
+    private Token readString(InputBuffer inputBuffer) {
+        StringBuilder tokenBuilder = new StringBuilder();
 
         int beginColumn = 0;
         int beginRow = 0;
@@ -122,13 +107,13 @@ public class Tokenizer implements ITokenizer {
         boolean begun = false;
         boolean finished = false;
 
-        while (lookAhead[0] != null && !finished) {
-            if (lookAhead[0] == '\\') {
-                consume();
+        while (!inputBuffer.isEmpty() && !finished) {
+            if (inputBuffer.current() == '\\') {
+                consume(inputBuffer);
 
-                char ch = lookAhead[0];
+                char ch = inputBuffer.current();
 
-                switch(lookAhead[0]) {
+                switch(inputBuffer.current()) {
                     case 't':
                         ch = '\t';
                         break;
@@ -150,9 +135,9 @@ public class Tokenizer implements ITokenizer {
                         break;
                 }
 
-                tokenBuffer.append(ch);
+                tokenBuilder.append(ch);
             }
-            else if (lookAhead[0] == '"') {
+            else if (inputBuffer.current() == '"') {
                 if (!begun) {
                     beginColumn = col;
                     beginRow = row;
@@ -163,33 +148,33 @@ public class Tokenizer implements ITokenizer {
                 }
             }
             else {
-                tokenBuffer.append(lookAhead[0]);
+                tokenBuilder.append(inputBuffer.current());
             }
 
-            consume();
+            consume(inputBuffer);
         }
 
         if (finished) {
-            return new Token(TokenType.String, tokenBuffer.toString(), beginColumn, beginRow);
+            return new Token(TokenType.String, tokenBuilder.toString(), beginColumn, beginRow);
         }
 
         throw new IllegalArgumentException("Unterminated string detected at " + beginRow + ", column " + beginColumn);
     }
 
-    private Token parseNumber() {
-        StringBuilder tokenBuffer = new StringBuilder();
+    private Token readNumber(InputBuffer inputBuffer) {
+        StringBuilder tokenBuilder = new StringBuilder();
 
         int beginColumn = col;
         int beginRow = row;
 
         boolean hasDecimalPoint = false;
 
-        tokenBuffer.append(lookAhead[0]);
-        consume();
+        tokenBuilder.append(inputBuffer.current());
+        consume(this.inputBuffer);
 
-        while (lookAhead[0] != null &&
-               (Character.isDigit(lookAhead[0]) || lookAhead[0] == '.')) {
-            if (lookAhead[0] == '.') {
+        while (!inputBuffer.isEmpty() &&
+               (Character.isDigit(inputBuffer.current()) || inputBuffer.current() == '.')) {
+            if (inputBuffer.current() == '.') {
                 if (hasDecimalPoint) {
                     throw new IllegalArgumentException("Invalid number format detected at row " + row + ", column " + col);
                 }
@@ -197,25 +182,26 @@ public class Tokenizer implements ITokenizer {
                 hasDecimalPoint = true;
             }
 
-            tokenBuffer.append(lookAhead[0]);
-            consume();
+            tokenBuilder.append(inputBuffer.current());
+            consume(inputBuffer);
         }
 
-        return new Token(TokenType.Number, tokenBuffer.toString(), beginColumn, beginRow);
+        return new Token(TokenType.Number, tokenBuilder.toString(), beginColumn, beginRow);
     }
 
-    private Token parseSymbol() {
-        StringBuilder tokenBuffer = new StringBuilder();
+    private Token readSymbol(InputBuffer inputBuffer) {
+        StringBuilder tokenBuilder = new StringBuilder();
 
         int beginColumn = col;
         int beginRow = row;
 
-        while (lookAhead[0] != null && !invalidSymbolCharacters.contains(lookAhead[0])) {
-            tokenBuffer.append(lookAhead[0]);
-            consume();
+        while (!inputBuffer.isEmpty() &&
+               !invalidSymbolCharacters.contains(inputBuffer.current())) {
+            tokenBuilder.append(inputBuffer.current());
+            consume(inputBuffer);
         }
 
-        return new Token(TokenType.Symbol, tokenBuffer.toString(), beginColumn, beginRow);
+        return new Token(TokenType.Symbol, tokenBuilder.toString(), beginColumn, beginRow);
     }
 }
 
