@@ -24,6 +24,16 @@ public class TokenizerTests extends TestSuite {
     }
 
     @Test
+    public void shallReturnSingleEofTokenOnWhitespaceInput() {
+        ITokenizer tokenizer = new Tokenizer();
+
+        List<Token> result = tokenizer.tokenize("    ");
+
+        assertEquals(1, result.size());
+        assertEquals(TokenType.EOF, result.get(0).getType());
+    }
+
+    @Test
     public void shallBeAbleToTokenizeLParen() {
         ITokenizer tokenizer = new Tokenizer();
 
