@@ -26,6 +26,9 @@ public class Tokenizer implements ITokenizer {
             char current = inputBuffer.current();
             Character next = inputBuffer.peekNext();
 
+            int column = inputBuffer.currentColumn();
+            int row = inputBuffer.currentRow();
+
             switch (current) {
                 case ' ':
                 case '\t':
@@ -37,39 +40,42 @@ public class Tokenizer implements ITokenizer {
                     break;
                 case '(':
                     inputBuffer.moveNext();
-                    return new Token(TokenType.LParen, "(", inputBuffer.currentColumn(), inputBuffer.currentRow());
+                    return new Token(TokenType.LParen, "(", column, row);
                 case ')':
                     inputBuffer.moveNext();
-                    return new Token(TokenType.RParen, ")", inputBuffer.currentColumn(), inputBuffer.currentRow());
+                    return new Token(TokenType.RParen, ")", column, row);
                 case '\'':
                     inputBuffer.moveNext();
-                    return new Token(TokenType.Quote, "'", inputBuffer.currentColumn(), inputBuffer.currentRow());
+                    return new Token(TokenType.Quote, "'", column, row);
                 case '"':
-                    return readString(inputBuffer);
+                    inputBuffer.moveNext();
+                    return new Token(TokenType.String, readString(inputBuffer), column, row);
                 default:
-                    if ((current == '-' && next != null && Character.isDigit(next)) ||
-                        Character.isDigit(current)) {
-                        return readNumber(inputBuffer);
+                    if (isBeginningOfNumber(current, next)) {
+                        return new Token(TokenType.Number, readNumber(inputBuffer), column, row);
+                    } else if (isBeginningOfSymbol(current)) {
+                        return new Token(TokenType.Symbol, readSymbol(inputBuffer), column, row);
                     }
 
-                    if (!invalidSymbolCharacters.contains(current)) {
-                        return readSymbol(inputBuffer);
-                    }
-
-                    throw new IllegalArgumentException("Invalid input (" + current + ") at row " + inputBuffer.currentRow() + ", column " + inputBuffer.currentColumn());
+                    throw new IllegalArgumentException("Invalid input (" + current + ") at row " + row + ", column " + column);
             }
         }
 
         return null;
     }
 
-    private Token readString(InputBuffer inputBuffer) {
-        StringBuilder tokenBuilder = new StringBuilder();
+    private boolean isBeginningOfSymbol(char current) {
+        return !invalidSymbolCharacters.contains(current);
+    }
 
-        int beginColumn = 0;
-        int beginRow = 0;
+    private boolean isBeginningOfNumber(char current, Character next) {
+        return Character.isDigit(current) ||
+               (current == '-' && next != null && Character.isDigit(next));
+    }
 
-        boolean begun = false;
+    private String readString(InputBuffer inputBuffer) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         boolean finished = false;
 
         while (!inputBuffer.isEmpty() && !finished) {
@@ -100,41 +106,31 @@ public class Tokenizer implements ITokenizer {
                         break;
                 }
 
-                tokenBuilder.append(ch);
+                stringBuilder.append(ch);
             }
             else if (inputBuffer.current() == '"') {
-                if (!begun) {
-                    beginColumn = inputBuffer.currentColumn();
-                    beginRow = inputBuffer.currentRow();
-                    begun = true;
-                }
-                else {
-                    finished = true;
-                }
+                finished = true;
             }
             else {
-                tokenBuilder.append(inputBuffer.current());
+                stringBuilder.append(inputBuffer.current());
             }
 
             inputBuffer.moveNext();
         }
 
         if (finished) {
-            return new Token(TokenType.String, tokenBuilder.toString(), beginColumn, beginRow);
+            return stringBuilder.toString();
         }
 
-        throw new IllegalArgumentException("Unterminated string detected at " + beginRow + ", column " + beginColumn);
+        throw new IllegalArgumentException("Unterminated string detected at " + inputBuffer.currentRow() + ", column " + inputBuffer.currentColumn());
     }
 
-    private Token readNumber(InputBuffer inputBuffer) {
-        StringBuilder tokenBuilder = new StringBuilder();
-
-        int beginColumn = inputBuffer.currentColumn();
-        int beginRow = inputBuffer.currentRow();
+    private String readNumber(InputBuffer inputBuffer) {
+        StringBuilder numberBuilder = new StringBuilder();
 
         boolean hasDecimalPoint = false;
 
-        tokenBuilder.append(inputBuffer.current());
+        numberBuilder.append(inputBuffer.current());
         inputBuffer.moveNext();
 
         while (!inputBuffer.isEmpty() &&
@@ -147,25 +143,22 @@ public class Tokenizer implements ITokenizer {
                 hasDecimalPoint = true;
             }
 
-            tokenBuilder.append(inputBuffer.current());
+            numberBuilder.append(inputBuffer.current());
             inputBuffer.moveNext();
         }
 
-        return new Token(TokenType.Number, tokenBuilder.toString(), beginColumn, beginRow);
+        return numberBuilder.toString();
     }
 
-    private Token readSymbol(InputBuffer inputBuffer) {
-        StringBuilder tokenBuilder = new StringBuilder();
-
-        int beginColumn = inputBuffer.currentColumn();
-        int beginRow = inputBuffer.currentRow();
+    private String readSymbol(InputBuffer inputBuffer) {
+        StringBuilder symbolBuilder = new StringBuilder();
 
         while (!inputBuffer.isEmpty() &&
                !invalidSymbolCharacters.contains(inputBuffer.current())) {
-            tokenBuilder.append(inputBuffer.current());
+            symbolBuilder.append(inputBuffer.current());
             inputBuffer.moveNext();
         }
 
-        return new Token(TokenType.Symbol, tokenBuilder.toString(), beginColumn, beginRow);
+        return symbolBuilder.toString();
     }
 }
