@@ -39,6 +39,6 @@ public class TokenBuffer {
     }
 
     boolean isEmpty() {
-        return location >= buffer.size() || current().getType() == TokenType.EOF;
+        return location >= buffer.size();
     }
 }

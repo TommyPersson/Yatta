@@ -14,23 +14,21 @@ import static junit.framework.Assert.assertEquals;
 public class TokenizerTests extends TestSuite {
 
     @Test
-    public void shallReturnSingleEofTokenOnEmptyInput() {
+    public void shallBeAbleToReadEmptyInput() {
         ITokenizer tokenizer = new Tokenizer();
 
         List<Token> result = tokenizer.tokenize("");
 
-        assertEquals(1, result.size());
-        assertEquals(TokenType.EOF, result.get(0).getType());
+        assertEquals(0, result.size());
     }
 
     @Test
-    public void shallReturnSingleEofTokenOnWhitespaceInput() {
+    public void shallBeAbleToReadWhitespaceInput() {
         ITokenizer tokenizer = new Tokenizer();
 
         List<Token> result = tokenizer.tokenize("    ");
 
-        assertEquals(1, result.size());
-        assertEquals(TokenType.EOF, result.get(0).getType());
+        assertEquals(0, result.size());
     }
 
     @Test
@@ -39,7 +37,7 @@ public class TokenizerTests extends TestSuite {
 
         List<Token> result = tokenizer.tokenize("(");
 
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
         assertEquals(TokenType.LParen, result.get(0).getType());
     }
 
@@ -49,7 +47,7 @@ public class TokenizerTests extends TestSuite {
 
         List<Token> result = tokenizer.tokenize(")");
 
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
         assertEquals(TokenType.RParen, result.get(0).getType());
     }
 
@@ -59,7 +57,7 @@ public class TokenizerTests extends TestSuite {
 
         List<Token> result = tokenizer.tokenize("a-symbol");
 
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
         assertEquals(TokenType.Symbol, result.get(0).getType());
     }
 
@@ -69,7 +67,7 @@ public class TokenizerTests extends TestSuite {
 
         List<Token> result = tokenizer.tokenize("\"a-string\"");
 
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
         assertEquals(TokenType.String, result.get(0).getType());
     }
 
@@ -79,7 +77,7 @@ public class TokenizerTests extends TestSuite {
 
         List<Token> result = tokenizer.tokenize("1 23 23.5 -1 -23 -23.5");
 
-        assertEquals(7, result.size());
+        assertEquals(6, result.size());
         assertEquals(TokenType.Number, result.get(0).getType());
         assertEquals(TokenType.Number, result.get(1).getType());
         assertEquals(TokenType.Number, result.get(2).getType());
@@ -100,7 +98,7 @@ public class TokenizerTests extends TestSuite {
 
         List<Token> result = tokenizer.tokenize("'");
 
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
         assertEquals(TokenType.Quote, result.get(0).getType());
     }
 }

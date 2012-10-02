@@ -3,7 +3,7 @@ package com.saabgroup.yatta.tokenizer;
 import java.util.*;
 
 public class Tokenizer implements ITokenizer {
-    private final HashSet<Character> invalidSymbolCharacters = new HashSet<Character>(Arrays.asList(new Character[] { '(', ')', ' ', '\n', '\t', '\r' }));
+    private final HashSet<Character> invalidSymbolCharacters = new HashSet<Character>(Arrays.asList(new Character[] { '(', ')', ' ', '\n', '\t' }));
 
     public List<Token> tokenize(String input) {
         InputBuffer inputBuffer = new InputBuffer(input);
@@ -15,8 +15,6 @@ public class Tokenizer implements ITokenizer {
                 tokens.add(token);
             }
         }
-
-        tokens.add(new Token(TokenType.EOF, "<EOF>", inputBuffer.currentColumn(), inputBuffer.currentRow()));
 
         return Collections.unmodifiableList(tokens);
     }

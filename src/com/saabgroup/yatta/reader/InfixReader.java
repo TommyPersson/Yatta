@@ -116,9 +116,6 @@ public class InfixReader implements IReader {
                         rpnOutput.add(new Symbol(token.getValue()));
                     }
                     break;
-
-                case EOF:
-                    break;
             }
 
             buffer.moveNext();
