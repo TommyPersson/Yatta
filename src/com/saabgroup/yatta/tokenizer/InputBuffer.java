@@ -62,10 +62,4 @@ public class InputBuffer {
     public boolean isEmpty() {
         return location >= input.length();
     }
-
-    private boolean isWhitespace(char ch) {
-        return ch == ' ' ||
-               ch == '\t' ||
-               ch == '\n';
-    }
 }
