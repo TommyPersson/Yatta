@@ -104,9 +104,7 @@ public class InfixReader implements IReader {
                         rpnOutput.add(readIfExpression(buffer));
                         continue; // skip the moveNext below, resume reading infix expression directly where we are
                     } else if (isOperator(token)) {
-                        while (!stack.empty() && isOperator(stack.peek()) &&
-                                ((isLeftAssociative(token) && getPrecedence(token) <= getPrecedence(stack.peek())) ||
-                                 getPrecedence(token) < getPrecedence(stack.peek()))) {
+                        while (operatorOnStackHasPrecedence(stack, token)) {
                             rpnOutput.add(new Symbol(stack.pop().getValue()));
                         }
 
@@ -126,6 +124,12 @@ public class InfixReader implements IReader {
         }
 
         return lispify(rpnOutput);
+    }
+
+    private boolean operatorOnStackHasPrecedence(Stack<Token> stack, Token token) {
+        return !stack.empty() && isOperator(stack.peek()) &&
+                ((isLeftAssociative(token) && getPrecedence(token) <= getPrecedence(stack.peek())) ||
+                 getPrecedence(token) < getPrecedence(stack.peek()));
     }
 
     private boolean isInvalidInfixExpressionToken(Token t) {

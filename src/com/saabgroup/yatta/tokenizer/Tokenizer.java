@@ -21,6 +21,11 @@ public class Tokenizer implements ITokenizer {
 
     private Token readNextToken(InputBuffer inputBuffer) {
         while (!inputBuffer.isEmpty()) {
+            inputBuffer.movePastWhitespace();
+            if (inputBuffer.isEmpty()) {
+                break;
+            }
+
             char current = inputBuffer.current();
             Character next = inputBuffer.peekNext();
 
@@ -28,11 +33,6 @@ public class Tokenizer implements ITokenizer {
             int row = inputBuffer.currentRow();
 
             switch (current) {
-                case ' ':
-                case '\t':
-                case '\n':
-                    inputBuffer.movePastWhitespace();
-                    break;
                 case ';':
                     inputBuffer.moveToNextLine();
                     break;
@@ -80,31 +80,7 @@ public class Tokenizer implements ITokenizer {
             if (inputBuffer.current() == '\\') {
                 inputBuffer.moveNext();
 
-                char ch = inputBuffer.current();
-
-                switch(inputBuffer.current()) {
-                    case 't':
-                        ch = '\t';
-                        break;
-                    case 'r':
-                        ch = '\r';
-                        break;
-                    case 'n':
-                        ch = '\n';
-                        break;
-                    case '\\':
-                        break;
-                    case '"':
-                        break;
-                    case 'b':
-                        ch = '\b';
-                        break;
-                    case 'f':
-                        ch = '\f';
-                        break;
-                }
-
-                stringBuilder.append(ch);
+                stringBuilder.append(createEscapedLiteral(inputBuffer.current()));
             }
             else if (inputBuffer.current() == '"') {
                 finished = true;
@@ -158,5 +134,22 @@ public class Tokenizer implements ITokenizer {
         }
 
         return symbolBuilder.toString();
+    }
+
+    private char createEscapedLiteral(char ch) {
+        switch(ch) {
+            case 't':
+                return '\t';
+            case 'r':
+                return '\r';
+            case 'n':
+                return '\n';
+            case 'b':
+                return '\b';
+            case 'f':
+                return '\f';
+            default:
+                return ch;
+        }
     }
 }

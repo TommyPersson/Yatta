@@ -28,7 +28,7 @@ public class InputBuffer {
     }
 
     public void movePastWhitespace() {
-        while (!isEmpty() && isWhitespace(current())) {
+        while (!isEmpty() && Character.isWhitespace(current())) {
             moveNext();
         }
     }
