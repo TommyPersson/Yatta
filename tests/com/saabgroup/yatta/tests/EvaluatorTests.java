@@ -238,4 +238,15 @@ public class EvaluatorTests {
         assertEquals(Keyword.create("keyword"), res);
         assertSame(Keyword.create("keyword"), res);
     }
+
+    @Test
+    public void shallEvaluateKeywordsAsFunctionsOnMaps() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        String res = (String)evaluator.evaluate("(:key2 {:key1 \"val1\" :key2 \"val2\"})");
+
+        assertEquals("val2", res);
+    }
+
+
 }

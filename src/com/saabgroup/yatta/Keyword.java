@@ -1,8 +1,12 @@
 package com.saabgroup.yatta;
 
-import java.util.HashMap;
+import com.saabgroup.yatta.evaluator.functions.IFunction;
 
-public class Keyword {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Keyword implements IFunction {
     private static HashMap<String, Keyword> internedKeywords = new HashMap<String, Keyword>();
 
     private final String name;
@@ -31,6 +35,12 @@ public class Keyword {
     @Override
     public String toString() {
         return getName();
+    }
+
+    public Object apply(List args) throws Exception {
+        Map<Object, Object> map = (Map<Object, Object>) args.get(0);
+
+        return map.get(this);
     }
 
     @Override
