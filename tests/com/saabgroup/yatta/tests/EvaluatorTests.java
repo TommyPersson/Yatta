@@ -267,4 +267,13 @@ public class EvaluatorTests {
 
         assertEquals("looked-up-value", res);
     }
+
+    @Test
+    public void shallEvaluateGet() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        String res = (String)evaluator.evaluate("(get {\"key1\" \"val1\" \"key2\" \"val2\"} \"key2\")");
+
+        assertEquals("val2", res);
+    }
 }

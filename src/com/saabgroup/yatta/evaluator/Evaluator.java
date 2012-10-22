@@ -101,6 +101,7 @@ public class Evaluator implements IEvaluator {
         rootDefs.put("not", new NotFunction());
         rootDefs.put("map", new MapFunction());
         rootDefs.put("list", new ListFunction());
+        rootDefs.put("get", new GetFunction());
 
         return new Environment(rootDefs);
     }
