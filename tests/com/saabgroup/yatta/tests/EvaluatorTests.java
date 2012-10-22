@@ -1,5 +1,6 @@
 package com.saabgroup.yatta.tests;
 
+import com.saabgroup.yatta.IExternalAccessorFunction;
 import com.saabgroup.yatta.Keyword;
 import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.evaluator.Environment;
@@ -248,5 +249,22 @@ public class EvaluatorTests {
         assertEquals("val2", res);
     }
 
+    @Test
+    public void shallEvaluateExternalAccessors() throws Exception {
+        IEvaluator evaluator = new Evaluator();
 
+        evaluator.setExternalAccessor(new IExternalAccessorFunction() {
+            public Object lookup(String path) {
+                if (path.equals("my-accessor-path")) {
+                    return "looked-up-value";
+                }
+
+                return null;
+            }
+        });
+
+        String res = (String)evaluator.evaluate("<my-accessor-path>");
+
+        assertEquals("looked-up-value", res);
+    }
 }

@@ -1,9 +1,6 @@
 package com.saabgroup.yatta.reader;
 
-import com.saabgroup.yatta.Keyword;
-import com.saabgroup.yatta.MapLiteral;
-import com.saabgroup.yatta.Quoted;
-import com.saabgroup.yatta.Symbol;
+import com.saabgroup.yatta.*;
 import com.saabgroup.yatta.tokenizer.ITokenizer;
 import com.saabgroup.yatta.tokenizer.Token;
 import com.saabgroup.yatta.tokenizer.TokenType;
@@ -62,10 +59,13 @@ public class Reader implements IReader {
                 return readSymbol(buffer);
             case Keyword:
                 return readKeyword(buffer);
+            case ExternalAccessor:
+                return readExternalAccessor(buffer);
         }
 
         throw new Exception("Unknown token");
     }
+
 
     private Object readMap(TokenBuffer buffer) throws Exception {
         buffer.moveNext(TokenType.LBrace);
@@ -127,5 +127,12 @@ public class Reader implements IReader {
         buffer.moveNext();
 
         return new BigDecimal(token.getValue());
+    }
+
+    private Object readExternalAccessor(TokenBuffer buffer) {
+        Token token = buffer.current();
+        buffer.moveNext();
+
+        return ExternalAccessor.create(token.getValue());
     }
 }

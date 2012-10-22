@@ -1,8 +1,6 @@
 package com.saabgroup.yatta.evaluator;
 
-import com.saabgroup.yatta.MapLiteral;
-import com.saabgroup.yatta.Quoted;
-import com.saabgroup.yatta.Symbol;
+import com.saabgroup.yatta.*;
 import com.saabgroup.yatta.evaluator.functions.*;
 import com.saabgroup.yatta.evaluator.special_forms.*;
 import com.saabgroup.yatta.reader.IReader;
@@ -15,6 +13,7 @@ public class Evaluator implements IEvaluator {
     private final IReader parser;
 
     private final Environment rootEnvironment;
+    private IExternalAccessorFunction accessorFunction;
 
     public Evaluator() {
         this(new Reader(new Tokenizer()));
@@ -56,13 +55,27 @@ public class Evaluator implements IEvaluator {
             return evaluateMapLiteral((MapLiteral)form, env);
         } else if (form instanceof List) {
             return evaluateList((List)form, env);
+        } else if (form instanceof ExternalAccessor) {
+            return evaluateExternalAccessor((ExternalAccessor)form, env);
         } else {
             return form;
         }
     }
 
+    private Object evaluateExternalAccessor(ExternalAccessor accessor, IEnvironment env) {
+        if (accessorFunction == null) {
+            return null;
+        }
+
+        return accessorFunction.lookup(accessor.getPath());
+    }
+
     public void setRootBinding(String name, Object value) {
         rootEnvironment.put(name, value);
+    }
+
+    public void setExternalAccessor(IExternalAccessorFunction accessorFunction) {
+        this.accessorFunction = accessorFunction;
     }
 
     private Environment createRootEnvironment() {

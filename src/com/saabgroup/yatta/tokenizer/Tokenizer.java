@@ -57,6 +57,8 @@ public class Tokenizer implements ITokenizer {
                 default:
                     if (isBeginningOfNumber(current, next)) {
                         return new Token(TokenType.Number, readNumber(inputBuffer), column, row);
+                    } else if (isBeginningOfExternalAccessor(current, next)) {
+                        return new Token(TokenType.ExternalAccessor, readExternalAccessor(inputBuffer), column, row);
                     } else if (isBeginningOfSymbol(current)) {
                         return new Token(TokenType.Symbol, readSymbol(inputBuffer), column, row);
                     } else if (isBeginningOfKeyword(current)) {
@@ -69,6 +71,10 @@ public class Tokenizer implements ITokenizer {
         }
 
         return null;
+    }
+
+    private boolean isBeginningOfExternalAccessor(char current, Character next) {
+        return current == '<' && !Character.isWhitespace(next);
     }
 
     private boolean isBeginningOfSymbol(char current) {
@@ -147,6 +153,23 @@ public class Tokenizer implements ITokenizer {
         }
 
         return symbolBuilder.toString();
+    }
+
+    private String readExternalAccessor(InputBuffer inputBuffer) {
+        StringBuilder accessorBuilder = new StringBuilder();
+        inputBuffer.moveNext();
+
+        while (!inputBuffer.isEmpty()) {
+            if (inputBuffer.current() == '>') {
+                inputBuffer.moveNext();
+                break;
+            }
+
+            accessorBuilder.append(inputBuffer.current());
+            inputBuffer.moveNext();
+        }
+
+        return accessorBuilder.toString();
     }
 
     private char createEscapedLiteral(char ch) {

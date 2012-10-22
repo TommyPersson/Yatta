@@ -9,5 +9,5 @@ public enum TokenType {
     Keyword, // :a-keyword
     String, // "a-string"
     Number, // 12 -12 12.3
-    Quote // '
+    ExternalAccessor, Quote // '
 }

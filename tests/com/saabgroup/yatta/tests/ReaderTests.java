@@ -1,9 +1,6 @@
 package com.saabgroup.yatta.tests;
 
-import com.saabgroup.yatta.Keyword;
-import com.saabgroup.yatta.MapLiteral;
-import com.saabgroup.yatta.Quoted;
-import com.saabgroup.yatta.Symbol;
+import com.saabgroup.yatta.*;
 import com.saabgroup.yatta.reader.IReader;
 import com.saabgroup.yatta.reader.Reader;
 import org.junit.Test;
@@ -110,5 +107,14 @@ public class ReaderTests {
 
         assertEquals("a-keyword", res[0].getName());
         assertEquals("a-n0ther-keyword!", res[1].getName());
+    }
+
+    @Test
+    public void shallReadExternalAccessors() throws Exception {
+        IReader reader = new Reader();
+
+        ExternalAccessor[] res = reader.read("<accessor>").toArray(new ExternalAccessor[0]);
+
+        assertEquals("accessor", res[0].getPath());
     }
 }

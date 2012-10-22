@@ -101,4 +101,15 @@ public class TokenizerTests extends TestSuite {
         assertEquals(1, result.size());
         assertEquals(TokenType.Quote, result.get(0).getType());
     }
+
+    @Test
+    public void shallBeAbleToTokenizeExternalAccessors() {
+        ITokenizer tokenizer = new Tokenizer();
+
+        List<Token> result = tokenizer.tokenize("<an-accessor>");
+
+        assertEquals(1, result.size());
+        assertEquals(TokenType.ExternalAccessor, result.get(0).getType());
+        assertEquals("an-accessor", result.get(0).getValue());
+    }
 }

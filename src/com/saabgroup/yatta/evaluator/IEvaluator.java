@@ -1,5 +1,7 @@
 package com.saabgroup.yatta.evaluator;
 
+import com.saabgroup.yatta.IExternalAccessorFunction;
+
 import java.util.Collection;
 
 public interface IEvaluator {
@@ -12,4 +14,6 @@ public interface IEvaluator {
     Object evaluate(Collection<Object> object, IEnvironment env) throws Exception;
 
     void setRootBinding(String name, Object value);
+
+    void setExternalAccessor(IExternalAccessorFunction accessorFunction);
 }
