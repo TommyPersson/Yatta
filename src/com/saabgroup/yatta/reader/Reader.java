@@ -1,5 +1,6 @@
 package com.saabgroup.yatta.reader;
 
+import com.saabgroup.yatta.MapLiteral;
 import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.tokenizer.ITokenizer;
@@ -8,10 +9,7 @@ import com.saabgroup.yatta.tokenizer.TokenType;
 import com.saabgroup.yatta.tokenizer.Tokenizer;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Reader implements IReader {
     ITokenizer tokenizer;
@@ -48,6 +46,8 @@ public class Reader implements IReader {
         switch (token.getType()) {
             case LParen:
                 return readList(buffer);
+            case LBrace:
+                return readMap(buffer);
             case Quote:
                 return readQuoted(buffer);
             case Number:
@@ -59,6 +59,20 @@ public class Reader implements IReader {
         }
 
         throw new Exception("Unknown token");
+    }
+
+    private Object readMap(TokenBuffer buffer) throws Exception {
+        buffer.moveNext(TokenType.LBrace);
+
+        List<Object> list = new ArrayList<Object>();
+
+        while (buffer.current().getType() != TokenType.RBrace) {
+            list.add(readExpression(buffer));
+        }
+
+        buffer.moveNext(TokenType.RBrace);
+
+        return MapLiteral.create(list);
     }
 
     private Object readList(TokenBuffer buffer) throws Exception {

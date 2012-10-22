@@ -42,6 +42,12 @@ public class Tokenizer implements ITokenizer {
                 case ')':
                     inputBuffer.moveNext();
                     return new Token(TokenType.RParen, ")", column, row);
+                case '{':
+                    inputBuffer.moveNext();
+                    return new Token(TokenType.LBrace, "{", column, row);
+                case '}':
+                    inputBuffer.moveNext();
+                    return new Token(TokenType.RBrace, "}", column, row);
                 case '\'':
                     inputBuffer.moveNext();
                     return new Token(TokenType.Quote, "'", column, row);

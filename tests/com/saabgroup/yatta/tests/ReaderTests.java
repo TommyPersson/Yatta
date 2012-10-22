@@ -1,5 +1,6 @@
 package com.saabgroup.yatta.tests;
 
+import com.saabgroup.yatta.MapLiteral;
 import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.reader.IReader;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -76,5 +78,26 @@ public class ReaderTests {
         assertEquals(new BigDecimal("1"), res[0].getQuotedValue());
         assertEquals("a", ((Symbol)res[1].getQuotedValue()).getName());
         assertEquals(3, ((List<BigDecimal>)res[2].getQuotedValue()).size());
+    }
+
+    @Test
+    public void shallReadMapLiterals() throws Exception {
+        IReader reader = new Reader();
+
+        MapLiteral[] res = reader.read("{'a 1 'b 2}").toArray(new MapLiteral[0]);
+
+        assertEquals(2, res[0].getEntries().size());
+
+        Map.Entry<Object, Object>[] entries = res[0].getEntries().toArray(new Map.Entry[0]);
+
+        for (Map.Entry<Object, Object> entry : entries) {
+            String name = ((Symbol)((Quoted)entry.getKey()).getQuotedValue()).getName();
+
+            if (name.equals("a")) {
+                assertEquals(new BigDecimal(1), entry.getValue());
+            } else if (name.equals("b")) {
+                assertEquals(new BigDecimal(2), entry.getValue());
+            }
+        }
     }
 }

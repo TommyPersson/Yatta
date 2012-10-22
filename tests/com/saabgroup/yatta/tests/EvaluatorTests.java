@@ -1,5 +1,6 @@
 package com.saabgroup.yatta.tests;
 
+import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.evaluator.Environment;
 import com.saabgroup.yatta.evaluator.Evaluator;
 import com.saabgroup.yatta.evaluator.IEvaluator;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.Assert.*;
 
@@ -214,5 +216,15 @@ public class EvaluatorTests {
         BigDecimal res = (BigDecimal)evaluator.evaluate("(cond false 1 false 2 false 3 'else 4)");
 
         assertEquals(4, res.intValue());
+    }
+
+    @Test
+    public void shallEvaluateMapLiterals() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        Map<Object, Object> res = (Map<Object, Object>)evaluator.evaluate("{'a 1 'b (+ 1 1)}");
+
+        assertEquals(new BigDecimal(1), res.get(new Symbol("a")));
+        assertEquals(new BigDecimal(2), res.get(new Symbol("b")));
     }
 }
