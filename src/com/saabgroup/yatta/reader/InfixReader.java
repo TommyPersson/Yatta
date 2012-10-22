@@ -93,7 +93,7 @@ public class InfixReader implements IReader {
 
                 case RParen:
                     while (stack.peek().getType() != TokenType.LParen) {
-                        rpnOutput.add(new Symbol(stack.pop().getValue()));
+                        rpnOutput.add(Symbol.create(stack.pop().getValue()));
                     }
 
                     stack.pop(); // LParen popped
@@ -105,13 +105,13 @@ public class InfixReader implements IReader {
                         continue; // skip the moveNext below, resume reading infix expression directly where we are
                     } else if (isOperator(token)) {
                         while (operatorOnStackHasPrecedence(stack, token)) {
-                            rpnOutput.add(new Symbol(stack.pop().getValue()));
+                            rpnOutput.add(Symbol.create(stack.pop().getValue()));
                         }
 
                         stack.push(token);
 
                     } else {
-                        rpnOutput.add(new Symbol(token.getValue()));
+                        rpnOutput.add(Symbol.create(token.getValue()));
                     }
                     break;
             }
@@ -120,7 +120,7 @@ public class InfixReader implements IReader {
         }
 
         while (!stack.empty()) {
-            rpnOutput.add(new Symbol(stack.pop().getValue()));
+            rpnOutput.add(Symbol.create(stack.pop().getValue()));
         }
 
         return lispify(rpnOutput);
@@ -168,10 +168,10 @@ public class InfixReader implements IReader {
 
     private Object getLispySymbolForOperator(String name) {
         if (lispyOperators.containsKey(name)) {
-            return new Symbol(lispyOperators.get(name));
+            return Symbol.create(lispyOperators.get(name));
         }
 
-        return new Symbol(name);
+        return Symbol.create(name);
     }
 
     private Object readIfExpression(TokenBuffer buffer) throws Exception {
@@ -182,7 +182,7 @@ public class InfixReader implements IReader {
         Object thenExpr = readInfixExpression(buffer);
 
         List<Object> condList = new ArrayList<Object>();
-        condList.add(new Symbol("cond"));
+        condList.add(Symbol.create("cond"));
         condList.add(predicate);
         condList.add(thenExpr);
 
@@ -201,7 +201,7 @@ public class InfixReader implements IReader {
         if (buffer.current().getValue().equals("else")) {
             buffer.moveNext();
 
-            condList.add(new Quoted(new Symbol("else")));
+            condList.add(new Quoted(Symbol.create("else")));
             condList.add(readInfixExpression(buffer));
         }
 

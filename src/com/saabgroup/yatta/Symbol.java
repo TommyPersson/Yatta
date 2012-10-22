@@ -1,10 +1,27 @@
 package com.saabgroup.yatta;
 
+import java.util.HashMap;
+
 public class Symbol {
+    private static HashMap<String, Symbol> internedSymbols = new HashMap<String, Symbol>();
+
     private final String name;
 
-    public Symbol(String name) {
+    private Symbol(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("A symbol must have a name");
+        }
+
         this.name = name;
+    }
+
+    public static Symbol create(String name) {
+        if (!internedSymbols.containsKey(name)) {
+            Symbol sym = new Symbol(name);
+            internedSymbols.put(name, sym);
+        }
+
+        return internedSymbols.get(name);
     }
 
     public String getName() {
@@ -28,6 +45,6 @@ public class Symbol {
 
     @Override
     public int hashCode() {
-        return name != null ? name.hashCode() : 0;
+        return name.hashCode();
     }
 }

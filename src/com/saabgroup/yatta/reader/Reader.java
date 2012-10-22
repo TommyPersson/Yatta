@@ -93,7 +93,7 @@ public class Reader implements IReader {
         Token token = buffer.current();
         buffer.moveNext();
 
-        return new Symbol(token.getValue());
+        return Symbol.create(token.getValue());
     }
 
     private Object readQuoted(TokenBuffer buffer) throws Exception {

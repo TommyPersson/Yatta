@@ -224,7 +224,7 @@ public class EvaluatorTests {
 
         Map<Object, Object> res = (Map<Object, Object>)evaluator.evaluate("{'a 1 'b (+ 1 1)}");
 
-        assertEquals(new BigDecimal(1), res.get(new Symbol("a")));
-        assertEquals(new BigDecimal(2), res.get(new Symbol("b")));
+        assertEquals(new BigDecimal(1), res.get(Symbol.create("a")));
+        assertEquals(new BigDecimal(2), res.get(Symbol.create("b")));
     }
 }
