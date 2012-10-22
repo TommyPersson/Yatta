@@ -1,5 +1,6 @@
 package com.saabgroup.yatta.tests;
 
+import com.saabgroup.yatta.Keyword;
 import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.evaluator.Environment;
 import com.saabgroup.yatta.evaluator.Evaluator;
@@ -226,5 +227,15 @@ public class EvaluatorTests {
 
         assertEquals(new BigDecimal(1), res.get(Symbol.create("a")));
         assertEquals(new BigDecimal(2), res.get(Symbol.create("b")));
+    }
+
+    @Test
+    public void shallEvaluateKeywordsToThemselves() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        Keyword res = (Keyword)evaluator.evaluate(":keyword");
+
+        assertEquals(Keyword.create("keyword"), res);
+        assertSame(Keyword.create("keyword"), res);
     }
 }

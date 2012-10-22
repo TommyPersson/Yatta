@@ -6,6 +6,7 @@ public enum TokenType {
     LBrace, // {
     RBrace, // }
     Symbol, // a-symbol
+    Keyword, // :a-keyword
     String, // "a-string"
     Number, // 12 -12 12.3
     Quote // '

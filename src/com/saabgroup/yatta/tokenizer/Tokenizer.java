@@ -59,6 +59,9 @@ public class Tokenizer implements ITokenizer {
                         return new Token(TokenType.Number, readNumber(inputBuffer), column, row);
                     } else if (isBeginningOfSymbol(current)) {
                         return new Token(TokenType.Symbol, readSymbol(inputBuffer), column, row);
+                    } else if (isBeginningOfKeyword(current)) {
+                        inputBuffer.moveNext();
+                        return new Token(TokenType.Keyword, readSymbol(inputBuffer), column, row);
                     }
 
                     throw new IllegalArgumentException("Invalid input (" + current + ") at row " + row + ", column " + column);
@@ -69,7 +72,11 @@ public class Tokenizer implements ITokenizer {
     }
 
     private boolean isBeginningOfSymbol(char current) {
-        return !invalidSymbolCharacters.contains(current);
+        return !invalidSymbolCharacters.contains(current) && current != ':';
+    }
+
+    private boolean isBeginningOfKeyword(char current) {
+        return current == ':';
     }
 
     private boolean isBeginningOfNumber(char current, Character next) {

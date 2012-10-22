@@ -1,5 +1,6 @@
 package com.saabgroup.yatta.tests;
 
+import com.saabgroup.yatta.Keyword;
 import com.saabgroup.yatta.MapLiteral;
 import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
@@ -99,5 +100,15 @@ public class ReaderTests {
                 assertEquals(new BigDecimal(2), entry.getValue());
             }
         }
+    }
+
+    @Test
+    public void shallReadKeywords() throws Exception {
+        IReader reader = new Reader();
+
+        Keyword[] res = reader.read(":a-keyword :a-n0ther-keyword!").toArray(new Keyword[0]);
+
+        assertEquals("a-keyword", res[0].getName());
+        assertEquals("a-n0ther-keyword!", res[1].getName());
     }
 }

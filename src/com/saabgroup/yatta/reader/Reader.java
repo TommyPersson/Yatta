@@ -1,5 +1,6 @@
 package com.saabgroup.yatta.reader;
 
+import com.saabgroup.yatta.Keyword;
 import com.saabgroup.yatta.MapLiteral;
 import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
@@ -9,7 +10,10 @@ import com.saabgroup.yatta.tokenizer.TokenType;
 import com.saabgroup.yatta.tokenizer.Tokenizer;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class Reader implements IReader {
     ITokenizer tokenizer;
@@ -56,6 +60,8 @@ public class Reader implements IReader {
                 return readString(buffer);
             case Symbol:
                 return readSymbol(buffer);
+            case Keyword:
+                return readKeyword(buffer);
         }
 
         throw new Exception("Unknown token");
@@ -94,6 +100,13 @@ public class Reader implements IReader {
         buffer.moveNext();
 
         return Symbol.create(token.getValue());
+    }
+
+    private Object readKeyword(TokenBuffer buffer) {
+        Token token = buffer.current();
+        buffer.moveNext();
+
+        return Keyword.create(token.getValue());
     }
 
     private Object readQuoted(TokenBuffer buffer) throws Exception {
