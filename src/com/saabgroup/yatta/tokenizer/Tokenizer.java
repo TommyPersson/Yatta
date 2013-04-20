@@ -42,12 +42,6 @@ public class Tokenizer implements ITokenizer {
                 case ')':
                     inputBuffer.moveNext();
                     return new Token(TokenType.RParen, ")", column, row);
-                case '{':
-                    inputBuffer.moveNext();
-                    return new Token(TokenType.LBrace, "{", column, row);
-                case '}':
-                    inputBuffer.moveNext();
-                    return new Token(TokenType.RBrace, "}", column, row);
                 case '\'':
                     inputBuffer.moveNext();
                     return new Token(TokenType.Quote, "'", column, row);
@@ -61,9 +55,6 @@ public class Tokenizer implements ITokenizer {
                         return new Token(TokenType.ExternalAccessor, readExternalAccessor(inputBuffer), column, row);
                     } else if (isBeginningOfSymbol(current)) {
                         return new Token(TokenType.Symbol, readSymbol(inputBuffer), column, row);
-                    } else if (isBeginningOfKeyword(current)) {
-                        inputBuffer.moveNext();
-                        return new Token(TokenType.Keyword, readSymbol(inputBuffer), column, row);
                     }
 
                     throw new IllegalArgumentException("Invalid input (" + current + ") at row " + row + ", column " + column);
@@ -79,10 +70,6 @@ public class Tokenizer implements ITokenizer {
 
     private boolean isBeginningOfSymbol(char current) {
         return !invalidSymbolCharacters.contains(current) && current != ':';
-    }
-
-    private boolean isBeginningOfKeyword(char current) {
-        return current == ':';
     }
 
     private boolean isBeginningOfNumber(char current, Character next) {

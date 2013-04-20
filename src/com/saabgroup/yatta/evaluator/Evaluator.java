@@ -51,8 +51,6 @@ public class Evaluator implements IEvaluator {
             return env.lookUp((Symbol) form);
         } else if (form instanceof Quoted) {
             return ((Quoted)form).getQuotedValue();
-        } else if (form instanceof MapLiteral) {
-            return evaluateMapLiteral((MapLiteral)form, env);
         } else if (form instanceof List) {
             return evaluateList((List)form, env);
         } else if (form instanceof ExternalAccessor) {
@@ -101,22 +99,8 @@ public class Evaluator implements IEvaluator {
         rootDefs.put("not", new NotFunction());
         rootDefs.put("map", new MapFunction());
         rootDefs.put("list", new ListFunction());
-        rootDefs.put("get", new GetFunction());
 
         return new Environment(rootDefs);
-    }
-
-    private Object evaluateMapLiteral(MapLiteral mapLiteral, IEnvironment env) throws Exception {
-        HashMap<Object, Object> resultMap = new HashMap<Object, Object>();
-
-        for (Map.Entry<Object, Object> entry : mapLiteral.getEntries()) {
-            Object keyVal = evaluate(entry.getKey(), env);
-            Object valueVal = evaluate(entry.getValue(), env);
-
-            resultMap.put(keyVal, valueVal);
-        }
-
-        return Collections.unmodifiableMap(resultMap);
     }
 
     private Object evaluateList(List list, IEnvironment env) throws Exception {

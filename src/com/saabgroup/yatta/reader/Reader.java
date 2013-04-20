@@ -47,8 +47,6 @@ public class Reader implements IReader {
         switch (token.getType()) {
             case LParen:
                 return readList(buffer);
-            case LBrace:
-                return readMap(buffer);
             case Quote:
                 return readQuoted(buffer);
             case Number:
@@ -57,28 +55,11 @@ public class Reader implements IReader {
                 return readString(buffer);
             case Symbol:
                 return readSymbol(buffer);
-            case Keyword:
-                return readKeyword(buffer);
             case ExternalAccessor:
                 return readExternalAccessor(buffer);
         }
 
         throw new Exception("Unknown token");
-    }
-
-
-    private Object readMap(TokenBuffer buffer) throws Exception {
-        buffer.moveNext(TokenType.LBrace);
-
-        List<Object> list = new ArrayList<Object>();
-
-        while (buffer.current().getType() != TokenType.RBrace) {
-            list.add(readExpression(buffer));
-        }
-
-        buffer.moveNext(TokenType.RBrace);
-
-        return MapLiteral.create(list);
     }
 
     private Object readList(TokenBuffer buffer) throws Exception {
@@ -100,13 +81,6 @@ public class Reader implements IReader {
         buffer.moveNext();
 
         return Symbol.create(token.getValue());
-    }
-
-    private Object readKeyword(TokenBuffer buffer) {
-        Token token = buffer.current();
-        buffer.moveNext();
-
-        return Keyword.create(token.getValue());
     }
 
     private Object readQuoted(TokenBuffer buffer) throws Exception {

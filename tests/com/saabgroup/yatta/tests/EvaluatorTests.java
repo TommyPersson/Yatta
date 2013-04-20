@@ -1,8 +1,6 @@
 package com.saabgroup.yatta.tests;
 
 import com.saabgroup.yatta.IExternalAccessorFunction;
-import com.saabgroup.yatta.Keyword;
-import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.evaluator.Environment;
 import com.saabgroup.yatta.evaluator.Evaluator;
 import com.saabgroup.yatta.evaluator.IEvaluator;
@@ -12,7 +10,6 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static junit.framework.Assert.*;
 
@@ -221,35 +218,6 @@ public class EvaluatorTests {
     }
 
     @Test
-    public void shallEvaluateMapLiterals() throws Exception {
-        IEvaluator evaluator = new Evaluator();
-
-        Map res = (Map)evaluator.evaluate("{'a 1 'b (+ 1 1)}");
-
-        assertEquals(new BigDecimal(1), res.get(Symbol.create("a")));
-        assertEquals(new BigDecimal(2), res.get(Symbol.create("b")));
-    }
-
-    @Test
-    public void shallEvaluateKeywordsToThemselves() throws Exception {
-        IEvaluator evaluator = new Evaluator();
-
-        Keyword res = (Keyword)evaluator.evaluate(":keyword");
-
-        assertEquals(Keyword.create("keyword"), res);
-        assertSame(Keyword.create("keyword"), res);
-    }
-
-    @Test
-    public void shallEvaluateKeywordsAsFunctionsOnMaps() throws Exception {
-        IEvaluator evaluator = new Evaluator();
-
-        String res = (String)evaluator.evaluate("(:key2 {:key1 \"val1\" :key2 \"val2\"})");
-
-        assertEquals("val2", res);
-    }
-
-    @Test
     public void shallEvaluateExternalAccessors() throws Exception {
         IEvaluator evaluator = new Evaluator();
 
@@ -266,14 +234,5 @@ public class EvaluatorTests {
         String res = (String)evaluator.evaluate("<my-accessor-path>");
 
         assertEquals("looked-up-value", res);
-    }
-
-    @Test
-    public void shallEvaluateGet() throws Exception {
-        IEvaluator evaluator = new Evaluator();
-
-        String res = (String)evaluator.evaluate("(get {\"key1\" \"val1\" \"key2\" \"val2\"} \"key2\")");
-
-        assertEquals("val2", res);
     }
 }
