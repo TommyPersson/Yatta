@@ -17,7 +17,7 @@ public class OrSpecialForm implements ISpecialForm {
         for (Object arg : args) {
             Object evaluatedArg = evaluator.evaluate(arg, env);
             if (ValueUtils.isTruthy(evaluatedArg)) {
-                return true;
+                return evaluatedArg;
             }
         }
 
