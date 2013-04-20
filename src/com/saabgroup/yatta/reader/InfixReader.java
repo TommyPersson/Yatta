@@ -2,7 +2,7 @@ package com.saabgroup.yatta.reader;
 
 import com.saabgroup.yatta.Quoted;
 import com.saabgroup.yatta.Symbol;
-import com.saabgroup.yatta.Tuple;
+import com.saabgroup.yatta.utils.Tuple;
 import com.saabgroup.yatta.tokenizer.ITokenizer;
 import com.saabgroup.yatta.tokenizer.Token;
 import com.saabgroup.yatta.tokenizer.TokenType;

@@ -1,4 +1,4 @@
-package com.saabgroup.yatta;
+package com.saabgroup.yatta.utils;
 
 public class Tuple<T1, T2> {
     private final T1 item1;
