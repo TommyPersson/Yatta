@@ -15,5 +15,7 @@ public interface IEvaluator {
 
     void setRootBinding(String name, Object value);
 
+    IEnvironment getEnvironment();
+
     void setExternalAccessor(IExternalAccessorFunction accessorFunction);
 }
