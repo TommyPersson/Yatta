@@ -49,6 +49,12 @@ public class Reader implements IReader {
                 return readList(buffer);
             case Quote:
                 return readQuoted(buffer);
+            case Backquote:
+                return readBackquote(buffer);
+            case Tilde:
+                return readTilde(buffer);
+            case Splice:
+                return readSplice(buffer);
             case Number:
                 return readNumber(buffer);
             case String:
@@ -87,6 +93,24 @@ public class Reader implements IReader {
         buffer.moveNext(TokenType.Quote);
 
         return new Quoted(readExpression(buffer));
+    }
+
+    private Object readBackquote(TokenBuffer buffer) throws Exception {
+        buffer.moveNext(TokenType.Backquote);
+
+        return new Backquote(readExpression(buffer));
+    }
+
+    private Object readTilde(TokenBuffer buffer) throws Exception {
+        buffer.moveNext(TokenType.Tilde);
+
+        return new Tilde(readExpression(buffer));
+    }
+
+    private Object readSplice(TokenBuffer buffer) throws Exception {
+        buffer.moveNext(TokenType.Splice);
+
+        return new Splice(readExpression(buffer));
     }
 
     private Object readString(TokenBuffer buffer) {

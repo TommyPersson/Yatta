@@ -11,6 +11,8 @@ import java.util.*;
 
 public class Evaluator implements IEvaluator {
     private final IReader parser;
+    private final BackquoteExpander backquoteExpander;
+    private final MacroExpander macroExpander;
 
     private final Environment rootEnvironment;
     private IExternalAccessorFunction accessorFunction;
@@ -21,6 +23,8 @@ public class Evaluator implements IEvaluator {
 
     public Evaluator(IReader parser) {
         this.parser = parser;
+        this.backquoteExpander = new BackquoteExpander(this);
+        this.macroExpander = new MacroExpander(this);
 
         rootEnvironment = createRootEnvironment();
     }
@@ -36,11 +40,13 @@ public class Evaluator implements IEvaluator {
         return evaluate(forms, env);
     }
 
-    public Object evaluate(Collection<Object> forms, IEnvironment env) throws Exception {
+    private Object evaluate(Collection<Object> forms, IEnvironment env) throws Exception {
         Object lastResult = null;
 
         for (Object form : forms) {
-            lastResult = evaluate(form, env);
+            Object expanded = macroExpander.expand(form, env);
+
+            lastResult = evaluate(expanded, env);
         }
 
         return lastResult;
@@ -51,10 +57,18 @@ public class Evaluator implements IEvaluator {
             return env.lookUp((Symbol) form);
         } else if (form instanceof Quoted) {
             return ((Quoted)form).getQuotedValue();
+        } else if (form instanceof Backquote) {
+            return backquoteExpander.expand((Backquote)form, env);
+        } else if (form instanceof Tilde) {
+            throw new Exception("~ not allowed outside of backquote!");
+        } else if (form instanceof Splice) {
+            throw new Exception("~@ not allowed outside of backquote!");
         } else if (form instanceof List) {
-            return evaluateList((List)form, env);
+            return evaluateList((List) form, env);
         } else if (form instanceof ExternalAccessor) {
             return evaluateExternalAccessor((ExternalAccessor)form, env);
+        } else if (form instanceof Macro) {
+            throw new Exception("Macro found in already expanded code!");
         } else {
             return form;
         }
@@ -92,6 +106,7 @@ public class Evaluator implements IEvaluator {
         rootDefs.put("do", new DoSpecialForm(this));
         rootDefs.put("lambda", new LambdaSpecialForm(this));
         rootDefs.put("def", new DefSpecialForm(this));
+        rootDefs.put("defmacro", new DefMacroSpecialForm(this));
         rootDefs.put("if", new IfSpecialForm(this));
         rootDefs.put("cond", new CondSpecialForm(this));
         rootDefs.put("let", new LetSpecialForm(this));
@@ -104,6 +119,9 @@ public class Evaluator implements IEvaluator {
         rootDefs.put("map", new MapFunction());
         rootDefs.put("list", new ListFunction());
         rootDefs.put("cons", new ConsFunction());
+        rootDefs.put("macro-expand-1", new MacroExpand1Function(this, macroExpander));
+        rootDefs.put("macro-expand", new MacroExpandFunction(this, macroExpander));
+        rootDefs.put("println", new PrintlnFunction());
 
         return new Environment(rootDefs);
     }
@@ -118,6 +136,8 @@ public class Evaluator implements IEvaluator {
             return applySpecialForm((ISpecialForm)firstItem, args, env);
         } else if (firstItem instanceof IFunction) {
             return applyFunction((IFunction)firstItem, args, env);
+        } else if (firstItem instanceof Macro) {
+            throw new Exception("Macro found in already expanded code!");
         }
 
         throw new IllegalArgumentException("Not a function dude");

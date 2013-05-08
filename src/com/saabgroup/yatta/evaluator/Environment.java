@@ -32,6 +32,19 @@ public class Environment implements IEnvironment {
         throw new Exception(String.format("Could not find binding for symbol '%s'", symbolName));
     }
 
+    public boolean hasDefinedValue(Symbol symbol) {
+        String symbolName = symbol.getName();
+        if (envTable.containsKey(symbolName)) {
+            return true;
+        }
+
+        if (parent != null) {
+            return parent.hasDefinedValue(symbol);
+        }
+
+        return false;
+    }
+
     public Environment createChildEnvironment(IEnvironment env) {
         HashMap<String, Object> extended = new HashMap<String, Object>(envTable);
 

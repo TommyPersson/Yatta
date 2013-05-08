@@ -1,9 +1,11 @@
 package com.saabgroup.yatta.tests;
 
 import com.saabgroup.yatta.IExternalAccessorFunction;
+import com.saabgroup.yatta.Symbol;
 import com.saabgroup.yatta.evaluator.Environment;
 import com.saabgroup.yatta.evaluator.Evaluator;
 import com.saabgroup.yatta.evaluator.IEvaluator;
+import com.saabgroup.yatta.evaluator.Macro;
 import com.saabgroup.yatta.evaluator.functions.IFunction;
 import org.junit.Test;
 
@@ -234,5 +236,59 @@ public class EvaluatorTests {
         String res = (String)evaluator.evaluate("<my-accessor-path>");
 
         assertEquals("looked-up-value", res);
+    }
+
+    @Test
+    public void shallEvaluateBackquoteAsQuoteWhenNoInnerTildeOrSplices() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        List res = (List)evaluator.evaluate("`(1 2 3)");
+
+        assertEquals(new BigDecimal(1), res.get(0));
+        assertEquals(new BigDecimal(2), res.get(1));
+        assertEquals(new BigDecimal(3), res.get(2));
+    }
+
+    @Test
+    public void shallEvaluateTildesInsideBackquote() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        List res = (List)evaluator.evaluate("`(1 ~(+ 1 2) 3)");
+
+        assertEquals(new BigDecimal(1), res.get(0));
+        assertEquals(new BigDecimal(3), res.get(1));
+        assertEquals(new BigDecimal(3), res.get(2));
+    }
+
+    @Test
+    public void shallSpliceInsideBackquote() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        List res = (List)evaluator.evaluate("`(1 ~@'(1 2) 3)");
+
+        assertEquals(new BigDecimal(1), res.get(0));
+        assertEquals(new BigDecimal(1), res.get(1));
+        assertEquals(new BigDecimal(2), res.get(2));
+        assertEquals(new BigDecimal(3), res.get(3));
+    }
+
+
+    @Test
+    public void shallBeAbleToDefineMacros() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        Macro res = (Macro)evaluator.evaluate("(defmacro test () 1)");
+
+        assertEquals(Macro.class, evaluator.getEnvironment().lookUp(Symbol.create("test")).getClass());
+    }
+
+    @Test
+    public void shallBeAbleToEvaluateMacros() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        BigDecimal res = (BigDecimal)evaluator.evaluate("(defmacro test () 1)" +
+                                                        "(test)");
+
+        assertEquals(new BigDecimal(1), res);
     }
 }

@@ -8,6 +8,8 @@ import java.util.Map;
 public interface IEnvironment {
     Object lookUp(Symbol symbol) throws Exception;
 
+    boolean hasDefinedValue(Symbol symbol);
+
     IEnvironment createChildEnvironment(IEnvironment env);
 
     IEnvironment createChildEnvironment(String symbolName, Object value);

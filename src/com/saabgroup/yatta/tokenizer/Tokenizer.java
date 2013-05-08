@@ -45,6 +45,18 @@ public class Tokenizer implements ITokenizer {
                 case '\'':
                     inputBuffer.moveNext();
                     return new Token(TokenType.Quote, "'", column, row);
+                case '`':
+                    inputBuffer.moveNext();
+                    return new Token(TokenType.Backquote, "`", column, row);
+                case '~':
+                    inputBuffer.moveNext();
+                    if (!inputBuffer.isEmpty() &&
+                        inputBuffer.current() == '@') {
+                        inputBuffer.moveNext();
+                        return new Token(TokenType.Splice, "~@", column, row);
+                    } else {
+                        return new Token(TokenType.Tilde, "~", column, row);
+                    }
                 case '"':
                     inputBuffer.moveNext();
                     return new Token(TokenType.String, readString(inputBuffer), column, row);

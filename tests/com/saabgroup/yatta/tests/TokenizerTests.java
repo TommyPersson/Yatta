@@ -112,4 +112,34 @@ public class TokenizerTests extends TestSuite {
         assertEquals(TokenType.ExternalAccessor, result.get(0).getType());
         assertEquals("an-accessor", result.get(0).getValue());
     }
+
+    @Test
+    public void shallBeAbleToTokenizeBackQuote() {
+        ITokenizer tokenizer = new Tokenizer();
+
+        List<Token> result = tokenizer.tokenize("`");
+
+        assertEquals(1, result.size());
+        assertEquals(TokenType.Backquote, result.get(0).getType());
+    }
+
+    @Test
+    public void shallBeAbleToTokenizeTilde() {
+        ITokenizer tokenizer = new Tokenizer();
+
+        List<Token> result = tokenizer.tokenize("~");
+
+        assertEquals(1, result.size());
+        assertEquals(TokenType.Tilde, result.get(0).getType());
+    }
+
+    @Test
+    public void shallBeAbleToTokenizeSplice() {
+        ITokenizer tokenizer = new Tokenizer();
+
+        List<Token> result = tokenizer.tokenize("~@");
+
+        assertEquals(1, result.size());
+        assertEquals(TokenType.Splice, result.get(0).getType());
+    }
 }

@@ -30,6 +30,6 @@ public class LetSpecialForm implements ISpecialForm {
             env = env.createChildEnvironment(symbolName, symbolValue);
         }
 
-        return evaluator.evaluate(body, env);
+        return new DoSpecialForm(evaluator).apply(body, env);
     }
 }

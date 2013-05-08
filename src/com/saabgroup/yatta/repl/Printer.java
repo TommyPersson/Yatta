@@ -1,8 +1,6 @@
 package com.saabgroup.yatta.repl;
 
-import com.saabgroup.yatta.ExternalAccessor;
-import com.saabgroup.yatta.Quoted;
-import com.saabgroup.yatta.Symbol;
+import com.saabgroup.yatta.*;
 
 import java.util.List;
 
@@ -16,10 +14,16 @@ public class Printer {
             return printSymbol((Symbol)obj);
         } else if (obj instanceof Quoted) {
             return printQuotedValue((Quoted)obj);
+        } else if (obj instanceof Backquote) {
+            return printBackquoteValue((Backquote)obj);
+        } else if (obj instanceof Tilde) {
+            return printTildeValue((Tilde)obj);
+        } else if (obj instanceof Splice) {
+            return printSpliceValue((Splice)obj);
         } else if (obj instanceof List) {
             return printList((List) obj);
         } else if (obj instanceof ExternalAccessor) {
-            return printExternalAccessor((ExternalAccessor)obj);
+            return printExternalAccessor((ExternalAccessor) obj);
         } else if (obj instanceof String) {
             return printString((String)obj);
         } else {
@@ -29,6 +33,18 @@ public class Printer {
 
             return obj.toString();
         }
+    }
+
+    private String printSpliceValue(Splice obj) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    private String printTildeValue(Tilde obj) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    private String printBackquoteValue(Backquote obj) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
     }
 
     private String printString(String str) {
@@ -49,7 +65,9 @@ public class Printer {
             sb.append(" ");
         }
 
-        sb.deleteCharAt(sb.length() - 1);
+        if (sb.length() > 1) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
         sb.append(")");
 
         return sb.toString();

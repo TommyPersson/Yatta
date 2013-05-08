@@ -1,8 +1,6 @@
 package com.saabgroup.yatta.tests;
 
-import com.saabgroup.yatta.ExternalAccessor;
-import com.saabgroup.yatta.Quoted;
-import com.saabgroup.yatta.Symbol;
+import com.saabgroup.yatta.*;
 import com.saabgroup.yatta.reader.IReader;
 import com.saabgroup.yatta.reader.Reader;
 import org.junit.Test;
@@ -86,5 +84,41 @@ public class ReaderTests {
         ExternalAccessor[] res = reader.read("<accessor>").toArray(new ExternalAccessor[0]);
 
         assertEquals("accessor", res[0].getPath());
+    }
+
+    @Test
+    public void shallReadBackquotedValues() throws Exception {
+        IReader Reader = new Reader();
+
+        Backquote[] res = Reader.read("`1 `a `(1 2 3)").toArray(new Backquote[0]);
+
+        assertEquals(3, res.length);
+        assertEquals(new BigDecimal("1"), res[0].getQuotedValue());
+        assertEquals("a", ((Symbol)res[1].getQuotedValue()).getName());
+        assertEquals(3, ((List<BigDecimal>)res[2].getQuotedValue()).size());
+    }
+
+    @Test
+    public void shallReadTildedValues() throws Exception {
+        IReader Reader = new Reader();
+
+        Tilde[] res = Reader.read("~1 ~a ~(1 2 3)").toArray(new Tilde[0]);
+
+        assertEquals(3, res.length);
+        assertEquals(new BigDecimal("1"), res[0].getQuotedValue());
+        assertEquals("a", ((Symbol)res[1].getQuotedValue()).getName());
+        assertEquals(3, ((List<BigDecimal>)res[2].getQuotedValue()).size());
+    }
+
+    @Test
+    public void shallReadSplicedValues() throws Exception {
+        IReader Reader = new Reader();
+
+        Splice[] res = Reader.read("~@1 ~@a ~@(1 2 3)").toArray(new Splice[0]);
+
+        assertEquals(3, res.length);
+        assertEquals(new BigDecimal("1"), res[0].getQuotedValue());
+        assertEquals("a", ((Symbol)res[1].getQuotedValue()).getName());
+        assertEquals(3, ((List<BigDecimal>)res[2].getQuotedValue()).size());
     }
 }
