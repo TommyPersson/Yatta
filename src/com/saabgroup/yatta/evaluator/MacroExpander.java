@@ -35,12 +35,6 @@ public class MacroExpander {
     private Object innerExpand(Object form, IEnvironment env) throws Exception {
         if (form instanceof Quoted) {
             return innerExpandQuoted((Quoted)form, env);
-       /* } else if (form instanceof Backquote) {
-            return innerExpandBackquote((Backquote) form, env);
-        } else if (form instanceof Tilde) {
-            return innerExpandTilde((Tilde)form, env);
-        } else if (form instanceof Splice) {
-            return innerExpandSplice((Splice)form, env);*/
         } else if (form instanceof List) {
             return innerExpandList((List)form, env);
         } else {
@@ -52,18 +46,6 @@ public class MacroExpander {
         return quoted;
     }
 
-    private Object innerExpandBackquote(Backquote backquote, IEnvironment env) throws Exception {
-        return new Backquote(innerExpand(backquote.getQuotedValue(), env));
-    }
-
-    private Object innerExpandSplice(Splice splice, IEnvironment env) throws Exception {
-        return new Splice(innerExpand(splice.getQuotedValue(), env));
-    }
-
-    private Object innerExpandTilde(Tilde tilde, IEnvironment env) throws Exception {
-        return new Tilde(innerExpand(tilde.getQuotedValue(), env));
-    }
-
     private Object innerExpandList(List list, IEnvironment env) throws Exception {
         if (list.size() == 0) {
             return list;
@@ -73,12 +55,12 @@ public class MacroExpander {
 
         if (!hasExpandedInLastRound && first instanceof Symbol) {
             Symbol sym = (Symbol)first;
-            if (env.hasDefinedValue(sym)) {
-                Object value = env.lookUp((Symbol)first);
+            if (env.hasDefinedValue(sym, evaluator.getCurrentNamespace())) {
+                Object value = env.lookUp((Symbol)first, evaluator.getCurrentNamespace());
                 if (value instanceof Macro) {
                     hasExpandedInLastRound = true;
 
-                    Object expand = ((Macro) value).expand(list.subList(1, list.size()));
+                    Object expand = ((Macro)value).expand(list.subList(1, list.size()));
                     return expand;
                 }
             }

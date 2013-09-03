@@ -10,8 +10,8 @@ import com.saabgroup.yatta.tokenizer.Tokenizer;
 import java.util.*;
 
 public class Evaluator implements IEvaluator {
-    private static final String YATTA_CORE_NS_NAME = "yatta.core";
-    private static final String YATTA_USER_NS_NAME = "yatta.user";
+    public static final String YATTA_CORE_NS_NAME = "yatta.core";
+    public static final String YATTA_USER_NS_NAME = "yatta.user";
 
     private final IReader parser;
     private final BackquoteExpander backquoteExpander;
@@ -67,7 +67,7 @@ public class Evaluator implements IEvaluator {
 
     public Object evaluate(Object form, IEnvironment env) throws Exception {
         if (form instanceof Symbol) {
-            Object val = lookUpSymbol((Symbol) form, env);
+            Object val = env.lookUp((Symbol)form, getCurrentNamespace());
             if (val instanceof IValue) {
                 return ((IValue)val).getValue(this, env);
             }
@@ -91,24 +91,6 @@ public class Evaluator implements IEvaluator {
         }
     }
 
-    private Object lookUpSymbol(Symbol symbol, IEnvironment env) throws Exception {
-        if (symbol.hasNamespace()) {
-            return env.lookUp(symbol);
-        }
-
-        Symbol namespacedSymbol = Symbol.create(currentNamespace.getName(), symbol.getName());
-        if (env.hasDefinedValue(namespacedSymbol)) {
-            return env.lookUp(namespacedSymbol);
-        }
-
-        Symbol coreSymbol = Symbol.create(YATTA_CORE_NS_NAME, symbol.getName());
-        if (env.hasDefinedValue(coreSymbol)) {
-            return env.lookUp(coreSymbol);
-        }
-
-        return env.lookUp(symbol);
-    }
-
     private Object evaluateExternalAccessor(ExternalAccessor accessor, IEnvironment env) {
         if (accessorFunction == null) {
             return null;
@@ -130,7 +112,7 @@ public class Evaluator implements IEvaluator {
     }
 
     private void setupInitialEnvironment() {
-        currentNamespace = new Namespace("yatta.core");
+        currentNamespace = new Namespace(YATTA_CORE_NS_NAME);
 
         setRootBinding("*ns*", new NsValue());
         setRootBinding("ns", new NsSpecialForm(this));

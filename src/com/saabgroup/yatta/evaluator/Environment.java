@@ -1,5 +1,6 @@
 package com.saabgroup.yatta.evaluator;
 
+import com.saabgroup.yatta.Namespace;
 import com.saabgroup.yatta.Symbol;
 
 import java.util.Collection;
@@ -23,32 +24,6 @@ public class Environment implements IEnvironment {
         this.parent = parent;
     }
 
-    public Object lookUp(Symbol symbol) {
-        String symbolName = symbol.getName();
-        if (envTable.containsKey(symbolName)) {
-            return envTable.get(symbolName);
-        }
-
-        if (parent != null) {
-            return parent.lookUp(symbol);
-        }
-
-        throw new RuntimeException(String.format("Could not find binding for symbol '%s'", symbolName));
-    }
-
-    public boolean hasDefinedValue(Symbol symbol) {
-        String symbolName = symbol.getName();
-        if (envTable.containsKey(symbolName)) {
-            return true;
-        }
-
-        if (parent != null) {
-            return parent.hasDefinedValue(symbol);
-        }
-
-        return false;
-    }
-
     public Environment createChildEnvironment(IEnvironment env) {
         HashMap<String, Object> extended = new HashMap<String, Object>(envTable);
 
@@ -70,7 +45,73 @@ public class Environment implements IEnvironment {
         return envTable.entrySet();
     }
 
+    public boolean hasDefinedValue(Symbol symbol, Namespace currentNamespace) {
+        if (hasDefinedValue(symbol)) {
+            return true;
+        }
+
+        Symbol namespacedSymbol = Symbol.create(currentNamespace.getName(), symbol.getName());
+        if (hasDefinedValue(namespacedSymbol)) {
+            return true;
+        }
+
+        for (Namespace ns : currentNamespace.getImplicitReferences()) {
+            Symbol coreSymbol = Symbol.create(ns.getName(), symbol.getName());
+            if (hasDefinedValue(coreSymbol)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Object lookUp(Symbol symbol, Namespace currentNamespace) {
+        if (symbol.hasNamespace()) {
+            return lookUp(symbol);
+        }
+
+        Symbol namespacedSymbol = Symbol.create(currentNamespace.getName(), symbol.getName());
+        if (hasDefinedValue(namespacedSymbol)) {
+            return lookUp(namespacedSymbol);
+        }
+
+        for (Namespace ns : currentNamespace.getImplicitReferences()) {
+            Symbol coreSymbol = Symbol.create(ns.getName(), symbol.getName());
+            if (hasDefinedValue(coreSymbol)) {
+                return lookUp(coreSymbol);
+            }
+        }
+
+        return lookUp(symbol);
+    }
+
     public void put(String name, Object value) {
         envTable.put(name, value);
+    }
+
+    private Object lookUp(Symbol symbol) {
+        String symbolName = symbol.getName();
+        if (envTable.containsKey(symbolName)) {
+            return envTable.get(symbolName);
+        }
+
+        if (parent != null) {
+            return parent.lookUp(symbol);
+        }
+
+        throw new RuntimeException(String.format("Could not find binding for symbol '%s'", symbolName));
+    }
+
+    private boolean hasDefinedValue(Symbol symbol) {
+        String symbolName = symbol.getName();
+        if (envTable.containsKey(symbolName)) {
+            return true;
+        }
+
+        if (parent != null) {
+            return parent.hasDefinedValue(symbol);
+        }
+
+        return false;
     }
 }

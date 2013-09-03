@@ -14,7 +14,7 @@ public interface IEvaluator {
 
     IEnvironment getEnvironment();
 
-    Object getCurrentNamespace();
+    Namespace getCurrentNamespace();
 
     void setCurrentNamespace(Namespace namespace);
 

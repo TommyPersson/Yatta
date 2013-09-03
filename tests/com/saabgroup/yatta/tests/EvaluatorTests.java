@@ -279,7 +279,7 @@ public class EvaluatorTests {
 
         Macro res = (Macro)evaluator.evaluate("(defmacro test () 1)");
 
-        assertEquals(Macro.class, evaluator.getEnvironment().lookUp(Symbol.create("test")).getClass());
+        assertEquals(Macro.class, evaluator.evaluate("test").getClass());
     }
 
     @Test
