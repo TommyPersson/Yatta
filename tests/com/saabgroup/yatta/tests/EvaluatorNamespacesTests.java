@@ -7,6 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.math.BigDecimal;
+
 import static junit.framework.Assert.assertEquals;
 
 public class EvaluatorNamespacesTests {
@@ -51,5 +53,18 @@ public class EvaluatorNamespacesTests {
         Namespace ns = (Namespace)evaluator.evaluate("(def a 1)" +
                                                      "(ns t)" +
                                                      "a");
+    }
+
+    @Test
+    public void shallBePossibleToAliasNamespaces() throws Exception {
+        IEvaluator evaluator = new Evaluator();
+
+        BigDecimal res = (BigDecimal)evaluator.evaluate(
+                "(ns old-ns)" +
+                "(def a 1)" +
+                "(ns new-ns :aliases ((old-ns :as o)))" +
+                "o/a");
+
+        assertEquals(1, res.intValue());
     }
 }

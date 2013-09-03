@@ -81,7 +81,7 @@ public class Tokenizer implements ITokenizer {
     }
 
     private boolean isBeginningOfSymbol(char current) {
-        return !invalidSymbolCharacters.contains(current) && current != ':';
+        return !invalidSymbolCharacters.contains(current);
     }
 
     private boolean isBeginningOfNumber(char current, Character next) {

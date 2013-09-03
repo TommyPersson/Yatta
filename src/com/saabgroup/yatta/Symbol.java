@@ -36,6 +36,14 @@ public class Symbol {
         return name.contains("/");
     }
 
+    public String getLocalName() {
+        if (!hasNamespace()) {
+            return name;
+        }
+
+        return name.split("/")[1];
+    }
+
     public String getNamespace() {
         if (!hasNamespace()) {
             return "";

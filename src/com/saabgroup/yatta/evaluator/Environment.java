@@ -45,17 +45,24 @@ public class Environment implements IEnvironment {
         return envTable.entrySet();
     }
 
-    public boolean hasDefinedValue(Symbol symbol, Namespace currentNamespace) {
+    public boolean hasDefinedValue(Symbol symbol, Namespace namespace) {
         if (hasDefinedValue(symbol)) {
             return true;
         }
 
-        Symbol namespacedSymbol = Symbol.create(currentNamespace.getName(), symbol.getName());
+        if (symbol.hasNamespace()) {
+            String nsName = symbol.getNamespace();
+            Namespace ns = namespace.getNamespaceByAlias(nsName);
+
+            return hasDefinedValue(Symbol.create(ns.getName(), symbol.getLocalName()));
+        }
+
+        Symbol namespacedSymbol = Symbol.create(namespace.getName(), symbol.getName());
         if (hasDefinedValue(namespacedSymbol)) {
             return true;
         }
 
-        for (Namespace ns : currentNamespace.getImplicitReferences()) {
+        for (Namespace ns : namespace.getImplicitReferences()) {
             Symbol coreSymbol = Symbol.create(ns.getName(), symbol.getName());
             if (hasDefinedValue(coreSymbol)) {
                 return true;
@@ -65,17 +72,24 @@ public class Environment implements IEnvironment {
         return false;
     }
 
-    public Object lookUp(Symbol symbol, Namespace currentNamespace) {
+    public Object lookUp(Symbol symbol, Namespace namespace) {
         if (symbol.hasNamespace()) {
-            return lookUp(symbol);
+            if (hasDefinedValue(symbol)) {
+                return lookUp(symbol);
+            } else {
+                String nsName = symbol.getNamespace();
+                Namespace ns = namespace.getNamespaceByAlias(nsName);
+
+                return lookUp(Symbol.create(ns.getName(), symbol.getLocalName()));
+            }
         }
 
-        Symbol namespacedSymbol = Symbol.create(currentNamespace.getName(), symbol.getName());
+        Symbol namespacedSymbol = Symbol.create(namespace.getName(), symbol.getName());
         if (hasDefinedValue(namespacedSymbol)) {
             return lookUp(namespacedSymbol);
         }
 
-        for (Namespace ns : currentNamespace.getImplicitReferences()) {
+        for (Namespace ns : namespace.getImplicitReferences()) {
             Symbol coreSymbol = Symbol.create(ns.getName(), symbol.getName());
             if (hasDefinedValue(coreSymbol)) {
                 return lookUp(coreSymbol);
