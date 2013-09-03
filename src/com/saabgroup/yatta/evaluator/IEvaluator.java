@@ -1,6 +1,7 @@
 package com.saabgroup.yatta.evaluator;
 
 import com.saabgroup.yatta.IExternalAccessorFunction;
+import com.saabgroup.yatta.Namespace;
 
 public interface IEvaluator {
     Object evaluate(String input) throws Exception;
@@ -12,6 +13,10 @@ public interface IEvaluator {
     void setRootBinding(String name, Object value);
 
     IEnvironment getEnvironment();
+
+    Object getCurrentNamespace();
+
+    void setCurrentNamespace(Namespace namespace);
 
     void setExternalAccessor(IExternalAccessorFunction accessorFunction);
 }

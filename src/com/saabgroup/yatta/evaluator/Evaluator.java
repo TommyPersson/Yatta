@@ -10,12 +10,16 @@ import com.saabgroup.yatta.tokenizer.Tokenizer;
 import java.util.*;
 
 public class Evaluator implements IEvaluator {
+    private static final String YATTA_CORE_NS_NAME = "yatta.core";
+    private static final String YATTA_USER_NS_NAME = "yatta.user";
+
     private final IReader parser;
     private final BackquoteExpander backquoteExpander;
     private final MacroExpander macroExpander;
 
     private final Environment rootEnvironment;
     private IExternalAccessorFunction accessorFunction;
+    private Namespace currentNamespace;
 
     public Evaluator() {
         this(new Reader(new Tokenizer()));
@@ -25,8 +29,17 @@ public class Evaluator implements IEvaluator {
         this.parser = parser;
         this.backquoteExpander = new BackquoteExpander(this);
         this.macroExpander = new MacroExpander(this);
+        rootEnvironment = new Environment();
 
-        rootEnvironment = createRootEnvironment();
+        setupInitialEnvironment();
+    }
+
+    public Namespace getCurrentNamespace() {
+        return currentNamespace;
+    }
+
+    public void setCurrentNamespace(Namespace namespace) {
+        currentNamespace = namespace;
     }
 
     public Object evaluate(String input) throws Exception {
@@ -54,7 +67,11 @@ public class Evaluator implements IEvaluator {
 
     public Object evaluate(Object form, IEnvironment env) throws Exception {
         if (form instanceof Symbol) {
-            return env.lookUp((Symbol) form);
+            Object val = lookUpSymbol((Symbol) form, env);
+            if (val instanceof IValue) {
+                return ((IValue)val).getValue(this, env);
+            }
+            return val;
         } else if (form instanceof Quoted) {
             return ((Quoted)form).getQuotedValue();
         } else if (form instanceof Backquote) {
@@ -74,6 +91,24 @@ public class Evaluator implements IEvaluator {
         }
     }
 
+    private Object lookUpSymbol(Symbol symbol, IEnvironment env) throws Exception {
+        if (symbol.hasNamespace()) {
+            return env.lookUp(symbol);
+        }
+
+        Symbol namespacedSymbol = Symbol.create(currentNamespace.getName(), symbol.getName());
+        if (env.hasDefinedValue(namespacedSymbol)) {
+            return env.lookUp(namespacedSymbol);
+        }
+
+        Symbol coreSymbol = Symbol.create(YATTA_CORE_NS_NAME, symbol.getName());
+        if (env.hasDefinedValue(coreSymbol)) {
+            return env.lookUp(coreSymbol);
+        }
+
+        return env.lookUp(symbol);
+    }
+
     private Object evaluateExternalAccessor(ExternalAccessor accessor, IEnvironment env) {
         if (accessorFunction == null) {
             return null;
@@ -83,7 +118,7 @@ public class Evaluator implements IEvaluator {
     }
 
     public void setRootBinding(String name, Object value) {
-        rootEnvironment.put(name, value);
+        rootEnvironment.put(Symbol.create(currentNamespace.getName(), name).getName(), value);
     }
 
     public IEnvironment getEnvironment() {
@@ -94,36 +129,40 @@ public class Evaluator implements IEvaluator {
         this.accessorFunction = accessorFunction;
     }
 
-    private Environment createRootEnvironment() {
-        Map<String, Object> rootDefs = new HashMap<String, Object>();
+    private void setupInitialEnvironment() {
+        currentNamespace = new Namespace("yatta.core");
 
-        rootDefs.put("true", true);
-        rootDefs.put("false", false);
-        rootDefs.put("nil", null);
+        setRootBinding("*ns*", new NsValue());
+        setRootBinding("ns", new NsSpecialForm(this));
 
-        rootDefs.put("and", new AndSpecialForm(this));
-        rootDefs.put("or", new OrSpecialForm(this));
-        rootDefs.put("do", new DoSpecialForm(this));
-        rootDefs.put("lambda", new LambdaSpecialForm(this));
-        rootDefs.put("def", new DefSpecialForm(this));
-        rootDefs.put("defmacro", new DefMacroSpecialForm(this));
-        rootDefs.put("if", new IfSpecialForm(this));
-        rootDefs.put("cond", new CondSpecialForm(this));
-        rootDefs.put("let", new LetSpecialForm(this));
+        setRootBinding("true", true);
+        setRootBinding("false", false);
+        setRootBinding("nil", null);
 
-        rootDefs.put("+", new PlusFunction());
-        rootDefs.put("*", new MultiplyFunction());
-        rootDefs.put("=", new EqualsFunction());
-        rootDefs.put("<", new LessThanFunction());
-        rootDefs.put("not", new NotFunction());
-        rootDefs.put("map", new MapFunction());
-        rootDefs.put("list", new ListFunction());
-        rootDefs.put("cons", new ConsFunction());
-        rootDefs.put("macro-expand-1", new MacroExpand1Function(this, macroExpander));
-        rootDefs.put("macro-expand", new MacroExpandFunction(this, macroExpander));
-        rootDefs.put("println", new PrintlnFunction());
+        setRootBinding("and", new AndSpecialForm(this));
+        setRootBinding("or", new OrSpecialForm(this));
+        setRootBinding("do", new DoSpecialForm(this));
+        setRootBinding("lambda", new LambdaSpecialForm(this));
+        setRootBinding("def", new DefSpecialForm(this));
+        setRootBinding("defmacro", new DefMacroSpecialForm(this));
+        setRootBinding("if", new IfSpecialForm(this));
+        setRootBinding("cond", new CondSpecialForm(this));
+        setRootBinding("let", new LetSpecialForm(this));
 
-        return new Environment(rootDefs);
+        setRootBinding("+", new PlusFunction());
+        setRootBinding("*", new MultiplyFunction());
+        setRootBinding("=", new EqualsFunction());
+        setRootBinding("<", new LessThanFunction());
+        setRootBinding("not", new NotFunction());
+        setRootBinding("map", new MapFunction());
+        setRootBinding("list", new ListFunction());
+        setRootBinding("cons", new ConsFunction());
+        setRootBinding("macro-expand-1", new MacroExpand1Function(this, macroExpander));
+        setRootBinding("macro-expand", new MacroExpandFunction(this, macroExpander));
+        setRootBinding("println", new PrintlnFunction());
+
+        Namespace userNamespace = new Namespace(YATTA_USER_NS_NAME);
+        currentNamespace = userNamespace;
     }
 
     private Object evaluateList(List list, IEnvironment env) throws Exception {

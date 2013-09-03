@@ -10,6 +10,10 @@ public class Environment implements IEnvironment {
     private final HashMap<String, Object> envTable;
     private final Environment parent;
 
+    public Environment() {
+        this(new HashMap<String, Object>(), null);
+    }
+
     public Environment(Map<String, Object> initialEnv) {
         this(initialEnv, null);
     }
@@ -19,7 +23,7 @@ public class Environment implements IEnvironment {
         this.parent = parent;
     }
 
-    public Object lookUp(Symbol symbol) throws Exception {
+    public Object lookUp(Symbol symbol) {
         String symbolName = symbol.getName();
         if (envTable.containsKey(symbolName)) {
             return envTable.get(symbolName);
@@ -29,7 +33,7 @@ public class Environment implements IEnvironment {
             return parent.lookUp(symbol);
         }
 
-        throw new Exception(String.format("Could not find binding for symbol '%s'", symbolName));
+        throw new RuntimeException(String.format("Could not find binding for symbol '%s'", symbolName));
     }
 
     public boolean hasDefinedValue(Symbol symbol) {

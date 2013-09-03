@@ -15,6 +15,10 @@ public class Symbol {
         this.name = name;
     }
 
+    public static Symbol create(String namespace, String name) {
+        return create(namespace + "/" + name);
+    }
+
     public static Symbol create(String name) {
         if (!internedSymbols.containsKey(name)) {
             Symbol sym = new Symbol(name);
@@ -26,6 +30,18 @@ public class Symbol {
 
     public String getName() {
         return name;
+    }
+
+    public Boolean hasNamespace() {
+        return name.contains("/");
+    }
+
+    public String getNamespace() {
+        if (!hasNamespace()) {
+            return "";
+        }
+
+        return name.split("/")[0];
     }
 
     @Override
