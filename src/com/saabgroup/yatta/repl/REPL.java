@@ -14,7 +14,7 @@ public class REPL {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
         while (running) {
-            System.out.print("> ");
+            System.out.print(String.format("%s> ", evaluator.getCurrentNamespace().getName()));
 
             try {
                 String input = in.readLine();
